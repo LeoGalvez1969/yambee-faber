@@ -1237,9 +1237,418 @@ section { padding: 120px 5%; position: relative; }
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+/* ============ INTRO POPUP / MODAL ============ */
+.intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 64, 54, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  animation: splashFadeIn 0.5s ease;
+}
+@keyframes splashFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.intro-splash.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-card {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  width: 100%;
+  background: linear-gradient(180deg, #FBF7EE 0%, #F5EDDD 100%);
+  border-radius: 28px;
+  padding: 56px 56px 48px;
+  text-align: center;
+  color: var(--ink);
+  box-shadow: 0 40px 100px rgba(15, 64, 54, 0.4), 0 0 0 1px rgba(212, 168, 87, 0.3);
+  animation: introCardIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+  overflow: hidden;
+  margin: auto;
+}
+@keyframes introCardIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Decorative orbs inside card */
+.intro-card::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(212, 168, 87, 0.35), transparent 70%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+.intro-card::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(46, 155, 126, 0.28), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.intro-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(15, 64, 54, 0.08);
+  border: 1px solid rgba(15, 64, 54, 0.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10;
+  padding: 0;
+  font-family: inherit;
+}
+.intro-close:hover {
+  background: var(--green-deep);
+  border-color: var(--green-deep);
+  transform: rotate(90deg);
+}
+.intro-close:hover svg { stroke: var(--cream); }
+.intro-close svg {
+  width: 18px; height: 18px;
+  stroke: var(--green-deep);
+  transition: stroke 0.3s;
+}
+
+.intro {
+  position: relative;
+  z-index: 2;
+}
+
+.intro__lang {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.intro__lang-btn {
+  background: rgba(15, 64, 54, 0.06);
+  border: 1px solid rgba(15, 64, 54, 0.12);
+  color: var(--green-deep);
+  padding: 8px 14px;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-family: inherit;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.intro__lang-btn:hover {
+  background: rgba(212, 168, 87, 0.15);
+  border-color: var(--gold);
+}
+.intro__lang-btn.is-active {
+  background: var(--green-deep);
+  border-color: var(--green-deep);
+  color: var(--cream);
+  font-weight: 500;
+}
+.intro__lang-flag {
+  width: 20px; height: 14px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.intro__lang-flag svg { width: 100%; height: 100%; display: block; }
+
+.intro__mark {
+  width: 64px; height: 64px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  background: rgba(255, 255, 255, 0.5);
+}
+.intro__mark::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px dashed rgba(176, 136, 56, 0.4);
+  animation: spin 30s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+.intro__mark svg { width: 32px; height: 32px; }
+
+.intro__eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 18px;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-weight: 500;
+}
+.intro__eyebrow::before, .intro__eyebrow::after {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+.intro__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 4.5vw, 44px);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  color: var(--green-deep);
+}
+.intro__title em {
+  font-style: italic;
+  color: var(--gold-deep);
+  font-weight: 400;
+}
+.intro__title strong {
+  display: block;
+  font-weight: 500;
+}
+
+.intro__lead {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.intro__lead strong { color: var(--green-deep); font-weight: 500; }
+
+.intro__benefits {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.intro__benefit {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+.intro__benefit svg {
+  width: 16px; height: 16px;
+  color: var(--green-emerald);
+}
+
+.intro__cta {
+  background: var(--green-deep);
+  color: var(--cream);
+  padding: 16px 32px;
+  border-radius: 60px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  transition: all 0.4s;
+  box-shadow: 0 12px 28px rgba(15, 64, 54, 0.25);
+}
+.intro__cta:hover {
+  background: var(--green-emerald);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(46, 155, 126, 0.35);
+}
+.intro__cta svg { width: 18px; height: 18px; }
+
+.intro__skip {
+  display: block;
+  margin: 20px auto 0;
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: color 0.3s;
+  font-family: inherit;
+  padding: 8px 16px;
+  text-decoration: underline;
+  text-decoration-color: rgba(15, 64, 54, 0.2);
+  text-underline-offset: 4px;
+}
+.intro__skip:hover {
+  color: var(--green-deep);
+  text-decoration-color: var(--gold);
+}
+
+@media (max-width: 600px) {
+  .intro-splash { padding: 12px; align-items: flex-start; padding-top: 5vh; }
+  .intro-card { padding: 56px 24px 32px; border-radius: 22px; }
+  .intro-close {
+    top: 12px; right: 12px;
+    width: 44px; height: 44px;
+    background: var(--green-deep);
+    border-color: var(--green-deep);
+  }
+  .intro-close svg { stroke: var(--cream); width: 20px; height: 20px; }
+  .intro__title { font-size: 26px; margin-bottom: 14px; }
+  .intro__lead { font-size: 14px; line-height: 1.6; margin-bottom: 22px; }
+  .intro__benefits { gap: 10px; margin-bottom: 24px; }
+  .intro__benefit { font-size: 11.5px; }
+  .intro__cta { padding: 14px 24px; font-size: 13px; width: 100%; justify-content: center; }
+  .intro__mark { width: 56px; height: 56px; margin-bottom: 16px; }
+  .intro__eyebrow { font-size: 9px; }
+  .intro__lang { margin-bottom: 24px; }
+}
+
+/* ============ NAV LANG SWITCHER ============ */
+.nav__lang {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-right: 12px;
+}
+.nav__lang-btn {
+  width: 32px; height: 22px;
+  border-radius: 3px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  overflow: hidden;
+  background: none;
+  padding: 0;
+  transition: all 0.3s;
+  opacity: 0.55;
+}
+.nav__lang-btn:hover { opacity: 1; }
+.nav__lang-btn.is-active {
+  opacity: 1;
+  border-color: var(--gold);
+  transform: scale(1.05);
+}
+.nav__lang-btn svg { width: 100%; height: 100%; display: block; }
+
+@media (max-width: 900px) {
+  .nav__lang { margin-right: 0; }
+}
+
 </style>
 </head>
 <body>
+
+<!-- ========== POPUP INTRO PERSUASIVO ========== -->
+<div class="intro-splash" id="introSplash" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+  <div class="intro-card">
+    <button class="intro-close" id="introClose" type="button" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="intro">
+      <div class="intro__lang">
+        <button class="intro__lang-btn is-active" data-set-lang="es" type="button">
+          <span class="intro__lang-flag">
+            <svg viewBox="0 0 30 20" preserveAspectRatio="none">
+              <rect x="0" y="0" width="10" height="20" fill="#006847"/>
+              <rect x="10" y="0" width="10" height="20" fill="#FFFFFF"/>
+              <rect x="20" y="0" width="10" height="20" fill="#CE1126"/>
+            </svg>
+          </span>
+          <span>Español</span>
+        </button>
+        <button class="intro__lang-btn" data-set-lang="en" type="button">
+          <span class="intro__lang-flag">
+            <svg viewBox="0 0 30 20" preserveAspectRatio="none">
+              <rect width="30" height="20" fill="#B22234"/>
+              <rect y="1.54" width="30" height="1.54" fill="#FFFFFF"/>
+              <rect y="4.62" width="30" height="1.54" fill="#FFFFFF"/>
+              <rect y="7.69" width="30" height="1.54" fill="#FFFFFF"/>
+              <rect y="10.77" width="30" height="1.54" fill="#FFFFFF"/>
+              <rect y="13.85" width="30" height="1.54" fill="#FFFFFF"/>
+              <rect y="16.92" width="30" height="1.54" fill="#FFFFFF"/>
+              <rect width="12" height="10.77" fill="#3C3B6E"/>
+            </svg>
+          </span>
+          <span>English</span>
+        </button>
+      </div>
+
+      <div class="intro__mark">
+        <svg viewBox="0 0 40 40" fill="none">
+          <path d="M14 8 Q18 14 14 20 Q10 26 14 32" stroke="#1F6B57" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="14" cy="6" r="2.5" fill="#2E9B7E"/>
+          <circle cx="13" cy="14" r="1.5" fill="#1F6B57"/>
+          <circle cx="13" cy="20" r="1.8" fill="#1F6B57"/>
+          <circle cx="13" cy="26" r="1.5" fill="#1F6B57"/>
+          <circle cx="13" cy="32" r="1.2" fill="#1F6B57"/>
+          <path d="M22 8 Q26 14 22 20 Q18 26 22 32" stroke="#2E9B7E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="intro__eyebrow" data-i18n="intro.eyebrow">Yambee Faber · Cuernavaca, Morelos</div>
+
+      <h2 class="intro__title" id="introTitle">
+        <span data-i18n="intro.title1">Recarga tu</span> <em data-i18n="intro.titleEm">energía</em>.<br>
+        <strong data-i18n="intro.title2">Eleva tu mente.</strong>
+      </h2>
+
+      <p class="intro__lead" data-i18n-html="intro.lead">
+        Bienvenido a un espacio donde la <strong>neurociencia</strong> se encuentra con la <strong>energía vital</strong>. Nuestras terapias <strong>Óptico-Acústicas</strong> y de <strong>Campos Electromagnéticos Pulsados (PEMF)</strong> son <strong>100% no invasivas</strong> y trabajan con la inteligencia natural de tu cuerpo para potenciar tu rendimiento intelectual, equilibrar tus emociones y restaurar tu vitalidad profunda.
+      </p>
+
+      <div class="intro__benefits">
+        <div class="intro__benefit">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span data-i18n="intro.benefit1">Sin medicamentos</span>
+        </div>
+        <div class="intro__benefit">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span data-i18n="intro.benefit2">Sin efectos secundarios</span>
+        </div>
+        <div class="intro__benefit">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span data-i18n="intro.benefit3">Resultados desde la primera sesión</span>
+        </div>
+      </div>
+
+      <a href="https://wa.me/527771285666?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20valoraci%C3%B3n%20por%20Zoom%20con%20Yambee%20Faber.%20Vengo%20referido%20por%3A%20" class="intro__cta" target="_blank" rel="noopener" data-cta="primary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span data-i18n="intro.cta">Agendar mi valoración gratuita</span>
+      </a>
+
+      <button class="intro__skip" id="introSkip" type="button" data-i18n="intro.skip">Explorar el sitio</button>
+    </div>
+  </div>
+</div>
 
 <!-- ========== NAV ========== -->
 <nav class="nav" id="nav">
@@ -1261,11 +1670,32 @@ section { padding: 120px 5%; position: relative; }
     </div>
   </a>
   <div class="nav__links">
-    <a href="#filosofia">Filosofía</a>
-    <a href="#tecnologias">Tecnologías</a>
-    <a href="#programas">Programas</a>
-    <a href="#espacio">El Espacio</a>
-    <a href="#contacto" class="nav__cta">Agendar Valoración →</a>
+    <a href="#filosofia" data-i18n="nav.philosophy">Filosofía</a>
+    <a href="#tecnologias" data-i18n="nav.tech">Tecnologías</a>
+    <a href="#programas" data-i18n="nav.programs">Programas</a>
+    <a href="#espacio" data-i18n="nav.space">El Espacio</a>
+    <div class="nav__lang">
+      <button class="nav__lang-btn is-active" data-set-lang="es" type="button" aria-label="Español" title="Español">
+        <svg viewBox="0 0 30 20" preserveAspectRatio="none">
+          <rect x="0" y="0" width="10" height="20" fill="#006847"/>
+          <rect x="10" y="0" width="10" height="20" fill="#FFFFFF"/>
+          <rect x="20" y="0" width="10" height="20" fill="#CE1126"/>
+        </svg>
+      </button>
+      <button class="nav__lang-btn" data-set-lang="en" type="button" aria-label="English" title="English">
+        <svg viewBox="0 0 30 20" preserveAspectRatio="none">
+          <rect width="30" height="20" fill="#B22234"/>
+          <rect y="1.54" width="30" height="1.54" fill="#FFFFFF"/>
+          <rect y="4.62" width="30" height="1.54" fill="#FFFFFF"/>
+          <rect y="7.69" width="30" height="1.54" fill="#FFFFFF"/>
+          <rect y="10.77" width="30" height="1.54" fill="#FFFFFF"/>
+          <rect y="13.85" width="30" height="1.54" fill="#FFFFFF"/>
+          <rect y="16.92" width="30" height="1.54" fill="#FFFFFF"/>
+          <rect width="12" height="10.77" fill="#3C3B6E"/>
+        </svg>
+      </button>
+    </div>
+    <a href="#contacto" class="nav__cta" data-i18n="nav.cta">Agendar Valoración →</a>
   </div>
   <button class="menu-toggle" aria-label="Menú">
     <span></span><span></span><span></span>
@@ -1286,34 +1716,34 @@ section { padding: 120px 5%; position: relative; }
 
   <div class="hero__container">
     <div class="hero__text">
-      <div class="hero__eyebrow">Centro de Bienestar Holístico-Energético · Cuernavaca</div>
-      <h1 class="hero__title">
+      <div class="hero__eyebrow" data-i18n="hero.eyebrow">Centro de Bienestar Holístico-Energético · Cuernavaca</div>
+      <h1 class="hero__title" data-i18n-html="hero.title">
         Recarga tu <em>energía</em>.<br>
         <strong>Eleva tu mente.</strong><br>
         Equilibra tu ser.
       </h1>
-      <p class="hero__lead">
+      <p class="hero__lead" data-i18n="hero.lead">
         Una experiencia exclusiva que reúne la ciencia de las ondas cerebrales y los campos electromagnéticos pulsados con la sabiduría de las terapias holísticas. Despierta tu rendimiento intelectual, serena tu mundo emocional y reconecta con tu vitalidad esencial.
       </p>
       <div class="hero__actions">
-        <a href="https://wa.me/527771285666?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20valoraci%C3%B3n%20por%20Zoom%20con%20Yambee%20Faber.%20Vengo%20referido%20por%3A%20" class="btn-primary" target="_blank" rel="noopener">
+        <a href="https://wa.me/527771285666?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20valoraci%C3%B3n%20por%20Zoom%20con%20Yambee%20Faber.%20Vengo%20referido%20por%3A%20" class="btn-primary" target="_blank" rel="noopener" data-cta="primary">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <span>Agendar valoración por Zoom</span>
+          <span data-i18n="hero.btnPrimary">Agendar valoración por Zoom</span>
         </a>
-        <a href="#tecnologias" class="btn-secondary">Conocer las terapias →</a>
+        <a href="#tecnologias" class="btn-secondary" data-i18n="hero.btnSecondary">Conocer las terapias →</a>
       </div>
       <div class="hero__meta">
         <div class="hero__meta-item">
           <span class="hero__meta-num">5+</span>
-          <span class="hero__meta-label">años acompañando</span>
+          <span class="hero__meta-label" data-i18n="hero.meta1">años acompañando</span>
         </div>
         <div class="hero__meta-item">
           <span class="hero__meta-num">2</span>
-          <span class="hero__meta-label">tecnologías integradas</span>
+          <span class="hero__meta-label" data-i18n="hero.meta2">tecnologías integradas</span>
         </div>
         <div class="hero__meta-item">
           <span class="hero__meta-num">100%</span>
-          <span class="hero__meta-label">no invasivo</span>
+          <span class="hero__meta-label" data-i18n="hero.meta3">no invasivo</span>
         </div>
       </div>
     </div>
@@ -1377,18 +1807,12 @@ section { padding: 120px 5%; position: relative; }
         </div>
       </div>
       <div>
-        <div class="section-eyebrow">Nuestra esencia</div>
-        <h2 class="section-title">No somos una clínica.<br>Acude a nuestro <em>centro de bienestar Integral</em>.</h2>
-        <p class="section-lead">
-          En Yambee Faber creemos que el verdadero bienestar nace cuando la ciencia y la consciencia trabajan juntas. Combinamos tecnologías de neurociencia validadas internacionalmente con un enfoque holístico-energético, creando experiencias profundamente transformadoras.
-        </p>
-        <p style="font-size: 16px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 24px;">
-          Aquí no tratamos enfermedades: <strong style="color: var(--green-deep); font-weight: 500;">acompañamos personas</strong> que buscan elevar su rendimiento intelectual, armonizar sus emociones, recuperar su energía vital y vivir desde un lugar de equilibrio profundo.
-        </p>
-        <div class="filosofia__quote">
-          "Cada sesión es un viaje hacia tu propia frecuencia natural —donde tu cuerpo recuerda cómo sentirse en armonía y tu mente descubre su mayor claridad."
-        </div>
-        <div class="filosofia__signature">— Filosofía Yambee Faber</div>
+        <div class="section-eyebrow" data-i18n="phil.eyebrow">Nuestra esencia</div>
+        <h2 class="section-title" data-i18n-html="phil.title">No somos una clínica.<br>Acude a nuestro <em>centro de bienestar Integral</em>.</h2>
+        <p class="section-lead" data-i18n="phil.lead1">En Yambee Faber creemos que el verdadero bienestar nace cuando la ciencia y la consciencia trabajan juntas. Combinamos tecnologías de neurociencia validadas internacionalmente con un enfoque holístico-energético, creando experiencias profundamente transformadoras.</p>
+        <p style="font-size: 16px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 24px;" data-i18n-html="phil.lead2">Aquí no tratamos enfermedades: <strong style="color: var(--green-deep); font-weight: 500;">acompañamos personas</strong> que buscan elevar su rendimiento intelectual, armonizar sus emociones, recuperar su energía vital y vivir desde un lugar de equilibrio profundo.</p>
+        <div class="filosofia__quote" data-i18n="phil.quote">"Cada sesión es un viaje hacia tu propia frecuencia natural —donde tu cuerpo recuerda cómo sentirse en armonía y tu mente descubre su mayor claridad."</div>
+        <div class="filosofia__signature" data-i18n="phil.signature">— Filosofía Yambee Faber</div>
       </div>
     </div>
   </div>
@@ -1398,11 +1822,9 @@ section { padding: 120px 5%; position: relative; }
 <section class="tecnologias" id="tecnologias">
   <div class="tecnologias__bg"></div>
   <div class="container">
-    <div class="section-eyebrow">Las tres tecnologías</div>
-    <h2 class="section-title">Una sinfonía de <em>frecuencias</em><br>para tu bienestar integral.</h2>
-    <p class="section-lead">
-      Cada tecnología actúa como un instrumento distinto en una misma orquesta. Combinadas, despiertan en tu sistema una respuesta natural de equilibrio, regeneración y vitalidad —sin medicamentos, sin invasión, sin efectos secundarios.
-    </p>
+    <div class="section-eyebrow" data-i18n="tech.eyebrow">Las tres tecnologías</div>
+    <h2 class="section-title" data-i18n-html="tech.title">Una sinfonía de <em>frecuencias</em><br>para tu bienestar integral.</h2>
+    <p class="section-lead" data-i18n="tech.lead">Cada tecnología actúa como un instrumento distinto en una misma orquesta. Combinadas, despiertan en tu sistema una respuesta natural de equilibrio, regeneración y vitalidad —sin medicamentos, sin invasión, sin efectos secundarios.</p>
 
     <div class="tec-grid">
       <!-- ÓPTICO-ACÚSTICA -->
@@ -1414,16 +1836,14 @@ section { padding: 120px 5%; position: relative; }
             <path d="M4 16 Q10 22 16 16 Q22 10 28 16" stroke="#1F6B57" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.6"/>
           </svg>
         </div>
-        <h3 class="tec-card__title">Estimulación Óptico-Acústica</h3>
-        <div class="tec-card__sub">Lentes de fototerapia + ondas sonoras</div>
-        <p class="tec-card__desc">
-          A través de patrones precisos de luz y sonido, guiamos tu cerebro hacia los estados óptimos de cada momento: enfoque profundo, calma absoluta, creatividad expandida o sueño reparador.
-        </p>
+        <h3 class="tec-card__title" data-i18n="tech.card1.title">Estimulación Óptico-Acústica</h3>
+        <div class="tec-card__sub" data-i18n="tech.card1.sub">Lentes de fototerapia + ondas sonoras</div>
+        <p class="tec-card__desc" data-i18n="tech.card1.desc">A través de patrones precisos de luz y sonido, guiamos tu cerebro hacia los estados óptimos de cada momento: enfoque profundo, calma absoluta, creatividad expandida o sueño reparador.</p>
         <ul class="tec-card__list">
-          <li>Eleva la concentración y rendimiento mental</li>
-          <li>Reduce ansiedad y estrés en minutos</li>
-          <li>Potencia memoria, aprendizaje y creatividad</li>
-          <li>Induce estados meditativos profundos</li>
+          <li data-i18n="tech.card1.li1">Eleva la concentración y rendimiento mental</li>
+          <li data-i18n="tech.card1.li2">Reduce ansiedad y estrés en minutos</li>
+          <li data-i18n="tech.card1.li3">Potencia memoria, aprendizaje y creatividad</li>
+          <li data-i18n="tech.card1.li4">Induce estados meditativos profundos</li>
         </ul>
       </div>
 
@@ -1438,16 +1858,14 @@ section { padding: 120px 5%; position: relative; }
             <path d="M16 27 L18 24 L14 24 Z" fill="#1F6B57"/>
           </svg>
         </div>
-        <h3 class="tec-card__title">Terapia PEMF</h3>
-        <div class="tec-card__sub">Campos electromagnéticos pulsados</div>
-        <p class="tec-card__desc">
-          Como una recarga natural para cada célula de tu cuerpo. Los campos magnéticos pulsados restauran el potencial energético celular, promoviendo regeneración profunda, vitalidad y bienestar físico.
-        </p>
+        <h3 class="tec-card__title" data-i18n="tech.card2.title">Terapia PEMF</h3>
+        <div class="tec-card__sub" data-i18n="tech.card2.sub">Campos electromagnéticos pulsados</div>
+        <p class="tec-card__desc" data-i18n="tech.card2.desc">Como una recarga natural para cada célula de tu cuerpo. Los campos magnéticos pulsados restauran el potencial energético celular, promoviendo regeneración profunda, vitalidad y bienestar físico.</p>
         <ul class="tec-card__list">
-          <li>Recarga la energía celular y vital</li>
-          <li>Apoya la regeneración natural del cuerpo</li>
-          <li>Mejora circulación y oxigenación</li>
-          <li>Equilibra el sistema nervioso</li>
+          <li data-i18n="tech.card2.li1">Recarga la energía celular y vital</li>
+          <li data-i18n="tech.card2.li2">Apoya la regeneración natural del cuerpo</li>
+          <li data-i18n="tech.card2.li3">Mejora circulación y oxigenación</li>
+          <li data-i18n="tech.card2.li4">Equilibra el sistema nervioso</li>
         </ul>
       </div>
 
@@ -1460,16 +1878,14 @@ section { padding: 120px 5%; position: relative; }
             <circle cx="16" cy="9" r="3" stroke="#1F6B57" stroke-width="1.5" fill="none"/>
           </svg>
         </div>
-        <h3 class="tec-card__title">Sillón Inteligente</h3>
-        <div class="tec-card__sub">Descompresión y relajación profunda</div>
-        <p class="tec-card__desc">
-          La experiencia comienza por el cuerpo. Un sillón terapéutico de última generación libera tensiones musculares profundas, mejora la circulación y prepara tu sistema para recibir el resto de las terapias.
-        </p>
+        <h3 class="tec-card__title" data-i18n="tech.card3.title">Sillón Inteligente</h3>
+        <div class="tec-card__sub" data-i18n="tech.card3.sub">Descompresión y relajación profunda</div>
+        <p class="tec-card__desc" data-i18n="tech.card3.desc">La experiencia comienza por el cuerpo. Un sillón terapéutico de última generación libera tensiones musculares profundas, mejora la circulación y prepara tu sistema para recibir el resto de las terapias.</p>
         <ul class="tec-card__list">
-          <li>Libera contracturas y tensión profunda</li>
-          <li>Activa la circulación sanguínea</li>
-          <li>Reduce estrés físico acumulado</li>
-          <li>Crea estado óptimo de receptividad</li>
+          <li data-i18n="tech.card3.li1">Libera contracturas y tensión profunda</li>
+          <li data-i18n="tech.card3.li2">Activa la circulación sanguínea</li>
+          <li data-i18n="tech.card3.li3">Reduce estrés físico acumulado</li>
+          <li data-i18n="tech.card3.li4">Crea estado óptimo de receptividad</li>
         </ul>
       </div>
     </div>
@@ -1479,11 +1895,9 @@ section { padding: 120px 5%; position: relative; }
 <!-- ========== PROGRAMAS / ONDAS ========== -->
 <section class="programas" id="programas">
   <div class="container">
-    <div class="section-eyebrow">Programas a medida</div>
-    <h2 class="section-title">El <em>lenguaje</em> de tu mente,<br>traducido a experiencias.</h2>
-    <p class="section-lead">
-      Tu cerebro habla en cuatro frecuencias principales. Cada una corresponde a un estado de consciencia. Nuestros programas te llevan al estado exacto que necesitas, cuando lo necesitas.
-    </p>
+    <div class="section-eyebrow" data-i18n="prog.eyebrow">Programas a medida</div>
+    <h2 class="section-title" data-i18n-html="prog.title">El <em>lenguaje</em> de tu mente,<br>traducido a experiencias.</h2>
+    <p class="section-lead" data-i18n="prog.lead">Tu cerebro habla en cuatro frecuencias principales. Cada una corresponde a un estado de consciencia. Nuestros programas te llevan al estado exacto que necesitas, cuando lo necesitas.</p>
 
     <!-- Visualización de ondas -->
     <div class="ondas-vis">
@@ -1495,7 +1909,7 @@ section { padding: 120px 5%; position: relative; }
           </svg>
           <div class="onda__name">Beta</div>
           <div class="onda__hz">14 — 30 Hz</div>
-          <div class="onda__desc">Concentración, alerta, alto rendimiento intelectual</div>
+          <div class="onda__desc" data-i18n="prog.beta">Concentración, alerta, alto rendimiento intelectual</div>
         </div>
         <div class="onda">
           <svg class="onda__wave" viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -1504,7 +1918,7 @@ section { padding: 120px 5%; position: relative; }
           </svg>
           <div class="onda__name">Alpha</div>
           <div class="onda__hz">8 — 13 Hz</div>
-          <div class="onda__desc">Relajación consciente, calma, integración mente-cuerpo</div>
+          <div class="onda__desc" data-i18n="prog.alpha">Relajación consciente, calma, integración mente-cuerpo</div>
         </div>
         <div class="onda">
           <svg class="onda__wave" viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -1513,7 +1927,7 @@ section { padding: 120px 5%; position: relative; }
           </svg>
           <div class="onda__name">Theta</div>
           <div class="onda__hz">4 — 7 Hz</div>
-          <div class="onda__desc">Meditación profunda, creatividad, memoria, aprendizaje</div>
+          <div class="onda__desc" data-i18n="prog.theta">Meditación profunda, creatividad, memoria, aprendizaje</div>
         </div>
         <div class="onda">
           <svg class="onda__wave" viewBox="0 0 100 60" preserveAspectRatio="none">
@@ -1522,7 +1936,7 @@ section { padding: 120px 5%; position: relative; }
           </svg>
           <div class="onda__name">Delta</div>
           <div class="onda__hz">1 — 3 Hz</div>
-          <div class="onda__desc">Sueño profundo, regeneración celular, sanación</div>
+          <div class="onda__desc" data-i18n="prog.delta">Sueño profundo, regeneración celular, sanación</div>
         </div>
       </div>
     </div>
@@ -1531,57 +1945,49 @@ section { padding: 120px 5%; position: relative; }
     <div class="prog-grid">
       <div class="prog-card">
         <div class="prog-card__num">01</div>
-        <h3 class="prog-card__title">Enfoque & Rendimiento</h3>
-        <div class="prog-card__sub">Para mente clara y productiva</div>
-        <p class="prog-card__desc">
-          Diseñado para profesionistas, estudiantes y personas que buscan elevar su capacidad cognitiva. Estimulamos los estados Beta-Alfa para máxima concentración, claridad mental y energía sostenida.
-        </p>
+        <h3 class="prog-card__title" data-i18n="prog.cat1.title">Enfoque & Rendimiento</h3>
+        <div class="prog-card__sub" data-i18n="prog.cat1.sub">Para mente clara y productiva</div>
+        <p class="prog-card__desc" data-i18n="prog.cat1.desc">Diseñado para profesionistas, estudiantes y personas que buscan elevar su capacidad cognitiva. Estimulamos los estados Beta-Alfa para máxima concentración, claridad mental y energía sostenida.</p>
         <div class="prog-card__tags">
-          <span class="prog-tag">Concentración</span>
-          <span class="prog-tag">Alto rendimiento</span>
-          <span class="prog-tag">Energía mental</span>
+          <span class="prog-tag" data-i18n="prog.cat1.tag1">Concentración</span>
+          <span class="prog-tag" data-i18n="prog.cat1.tag2">Alto rendimiento</span>
+          <span class="prog-tag" data-i18n="prog.cat1.tag3">Energía mental</span>
         </div>
       </div>
 
       <div class="prog-card">
         <div class="prog-card__num">02</div>
-        <h3 class="prog-card__title">Calma & Restauración</h3>
-        <div class="prog-card__sub">Para serenar y reequilibrar</div>
-        <p class="prog-card__desc">
-          Para quienes viven con estrés, ansiedad o agotamiento emocional. Llevamos tu sistema a los ritmos Alfa-Theta donde el cuerpo entra en su modo natural de restauración profunda.
-        </p>
+        <h3 class="prog-card__title" data-i18n="prog.cat2.title">Calma & Restauración</h3>
+        <div class="prog-card__sub" data-i18n="prog.cat2.sub">Para serenar y reequilibrar</div>
+        <p class="prog-card__desc" data-i18n="prog.cat2.desc">Para quienes viven con estrés, ansiedad o agotamiento emocional. Llevamos tu sistema a los ritmos Alfa-Theta donde el cuerpo entra en su modo natural de restauración profunda.</p>
         <div class="prog-card__tags">
-          <span class="prog-tag">Anti-estrés</span>
-          <span class="prog-tag">Equilibrio emocional</span>
-          <span class="prog-tag">Relajación</span>
+          <span class="prog-tag" data-i18n="prog.cat2.tag1">Anti-estrés</span>
+          <span class="prog-tag" data-i18n="prog.cat2.tag2">Equilibrio emocional</span>
+          <span class="prog-tag" data-i18n="prog.cat2.tag3">Relajación</span>
         </div>
       </div>
 
       <div class="prog-card">
         <div class="prog-card__num">03</div>
-        <h3 class="prog-card__title">Creatividad & Aprendizaje</h3>
-        <div class="prog-card__sub">Para expandir tu potencial</div>
-        <p class="prog-card__desc">
-          Activa los estados Theta donde florecen la inspiración, la memoria y la asimilación profunda. Ideal para creativos, escritores, artistas y quienes están en procesos intensos de aprendizaje.
-        </p>
+        <h3 class="prog-card__title" data-i18n="prog.cat3.title">Creatividad & Aprendizaje</h3>
+        <div class="prog-card__sub" data-i18n="prog.cat3.sub">Para expandir tu potencial</div>
+        <p class="prog-card__desc" data-i18n="prog.cat3.desc">Activa los estados Theta donde florecen la inspiración, la memoria y la asimilación profunda. Ideal para creativos, escritores, artistas y quienes están en procesos intensos de aprendizaje.</p>
         <div class="prog-card__tags">
-          <span class="prog-tag">Inspiración</span>
-          <span class="prog-tag">Memoria</span>
-          <span class="prog-tag">Aprendizaje</span>
+          <span class="prog-tag" data-i18n="prog.cat3.tag1">Inspiración</span>
+          <span class="prog-tag" data-i18n="prog.cat3.tag2">Memoria</span>
+          <span class="prog-tag" data-i18n="prog.cat3.tag3">Aprendizaje</span>
         </div>
       </div>
 
       <div class="prog-card">
         <div class="prog-card__num">04</div>
-        <h3 class="prog-card__title">Sueño & Exploración Interior</h3>
-        <div class="prog-card__sub">Para reconectar contigo mismo</div>
-        <p class="prog-card__desc">
-          Estados Theta-Delta para descanso profundo, recuerdo de sueños y autoconocimiento. Pensado para personas con insomnio o quienes buscan un trabajo más espiritual y consciente.
-        </p>
+        <h3 class="prog-card__title" data-i18n="prog.cat4.title">Sueño & Exploración Interior</h3>
+        <div class="prog-card__sub" data-i18n="prog.cat4.sub">Para reconectar contigo mismo</div>
+        <p class="prog-card__desc" data-i18n="prog.cat4.desc">Estados Theta-Delta para descanso profundo, recuerdo de sueños y autoconocimiento. Pensado para personas con insomnio o quienes buscan un trabajo más espiritual y consciente.</p>
         <div class="prog-card__tags">
-          <span class="prog-tag">Sueño profundo</span>
-          <span class="prog-tag">Meditación</span>
-          <span class="prog-tag">Auto-conocimiento</span>
+          <span class="prog-tag" data-i18n="prog.cat4.tag1">Sueño profundo</span>
+          <span class="prog-tag" data-i18n="prog.cat4.tag2">Meditación</span>
+          <span class="prog-tag" data-i18n="prog.cat4.tag3">Auto-conocimiento</span>
         </div>
       </div>
     </div>
@@ -1591,47 +1997,45 @@ section { padding: 120px 5%; position: relative; }
 <!-- ========== AUDIENCIAS ========== -->
 <section class="audiencias">
   <div class="container">
-    <div class="section-eyebrow">Para quién es Yambee Faber</div>
-    <h2 class="section-title">Si buscas <em>algo más</em><br>que sólo descansar.</h2>
-    <p class="section-lead">
-      Acompañamos a personas conscientes que entienden que el bienestar es una práctica integral. Que el cuerpo, la mente y la energía son inseparables.
-    </p>
+    <div class="section-eyebrow" data-i18n="aud.eyebrow">Para quién es Yambee Faber</div>
+    <h2 class="section-title" data-i18n-html="aud.title">Si buscas <em>algo más</em><br>que sólo descansar.</h2>
+    <p class="section-lead" data-i18n="aud.lead">Acompañamos a personas conscientes que entienden que el bienestar es una práctica integral. Que el cuerpo, la mente y la energía son inseparables.</p>
 
     <div class="aud-grid">
       <div class="aud-card">
         <div class="aud-card__num">— 01 —</div>
-        <h3 class="aud-card__title">Profesionistas con estrés y ansiedad</h3>
-        <p class="aud-card__desc">Vives demandas constantes y necesitas un espacio para serenar el sistema nervioso, recuperar claridad y volver a tu eje sin medicamentos.</p>
+        <h3 class="aud-card__title" data-i18n="aud.card1.title">Profesionistas con estrés y ansiedad</h3>
+        <p class="aud-card__desc" data-i18n="aud.card1.desc">Vives demandas constantes y necesitas un espacio para serenar el sistema nervioso, recuperar claridad y volver a tu eje sin medicamentos.</p>
       </div>
 
       <div class="aud-card">
         <div class="aud-card__num">— 02 —</div>
-        <h3 class="aud-card__title">Estudiantes y mentes en alto rendimiento</h3>
-        <p class="aud-card__desc">Buscas sostener concentración prolongada, asimilar información compleja, mejorar memoria y rendir en exámenes o proyectos exigentes.</p>
+        <h3 class="aud-card__title" data-i18n="aud.card2.title">Estudiantes y mentes en alto rendimiento</h3>
+        <p class="aud-card__desc" data-i18n="aud.card2.desc">Buscas sostener concentración prolongada, asimilar información compleja, mejorar memoria y rendir en exámenes o proyectos exigentes.</p>
       </div>
 
       <div class="aud-card">
         <div class="aud-card__num">— 03 —</div>
-        <h3 class="aud-card__title">Adultos mayores y bienestar cognitivo</h3>
-        <p class="aud-card__desc">Quieres mantener una mente ágil, claridad, memoria y vitalidad como parte de un envejecimiento consciente y activo.</p>
+        <h3 class="aud-card__title" data-i18n="aud.card3.title">Adultos mayores y bienestar cognitivo</h3>
+        <p class="aud-card__desc" data-i18n="aud.card3.desc">Quieres mantener una mente ágil, claridad, memoria y vitalidad como parte de un envejecimiento consciente y activo.</p>
       </div>
 
       <div class="aud-card">
         <div class="aud-card__num">— 04 —</div>
-        <h3 class="aud-card__title">Deportistas y alto rendimiento</h3>
-        <p class="aud-card__desc">Optimizas tu recuperación, regeneración celular, enfoque mental pre-competencia y rendimiento físico al máximo nivel.</p>
+        <h3 class="aud-card__title" data-i18n="aud.card4.title">Deportistas y alto rendimiento</h3>
+        <p class="aud-card__desc" data-i18n="aud.card4.desc">Optimizas tu recuperación, regeneración celular, enfoque mental pre-competencia y rendimiento físico al máximo nivel.</p>
       </div>
 
       <div class="aud-card">
         <div class="aud-card__num">— 05 —</div>
-        <h3 class="aud-card__title">Personas con insomnio</h3>
-        <p class="aud-card__desc">Tu sueño no es reparador. Buscas restaurar tus ciclos naturales para descansar profundamente y despertar verdaderamente renovado.</p>
+        <h3 class="aud-card__title" data-i18n="aud.card5.title">Personas con insomnio</h3>
+        <p class="aud-card__desc" data-i18n="aud.card5.desc">Tu sueño no es reparador. Buscas restaurar tus ciclos naturales para descansar profundamente y despertar verdaderamente renovado.</p>
       </div>
 
       <div class="aud-card">
         <div class="aud-card__num">— 06 —</div>
-        <h3 class="aud-card__title">Buscadores holístico-espirituales</h3>
-        <p class="aud-card__desc">Tu camino es de consciencia. Quieres profundizar en meditación, exploración interior y conexión con tu energía esencial desde una vía moderna.</p>
+        <h3 class="aud-card__title" data-i18n="aud.card6.title">Buscadores holístico-espirituales</h3>
+        <p class="aud-card__desc" data-i18n="aud.card6.desc">Tu camino es de consciencia. Quieres profundizar en meditación, exploración interior y conexión con tu energía esencial desde una vía moderna.</p>
       </div>
     </div>
   </div>
@@ -1648,31 +2052,27 @@ section { padding: 120px 5%; position: relative; }
       </div>
 
       <div>
-        <div class="section-eyebrow">El espacio</div>
-        <h2 class="section-title">Un santuario en el corazón de <em>Cuernavaca</em>.</h2>
-        <p style="font-size: 17px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 20px;">
-          Cuidamos cada detalle para que tu sesión sea verdaderamente transformadora. Atendemos en un espacio íntimo y sereno —no una clínica— donde la calidez del trato humano se encuentra con tecnología de vanguardia.
-        </p>
-        <p style="font-size: 16px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 8px;">
-          <strong style="color: var(--green-deep); font-weight: 500;">Atención exclusiva por referencia.</strong> Por la naturaleza personalizada de nuestras experiencias, recibimos únicamente a personas que llegan recomendadas por nuestra comunidad.
-        </p>
+        <div class="section-eyebrow" data-i18n="space.eyebrow">El espacio</div>
+        <h2 class="section-title" data-i18n-html="space.title">Un santuario en el corazón de <em>Cuernavaca</em>.</h2>
+        <p style="font-size: 17px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 20px;" data-i18n="space.lead1">Cuidamos cada detalle para que tu sesión sea verdaderamente transformadora. Atendemos en un espacio íntimo y sereno —no una clínica— donde la calidez del trato humano se encuentra con tecnología de vanguardia.</p>
+        <p style="font-size: 16px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 8px;" data-i18n-html="space.lead2"><strong style="color: var(--green-deep); font-weight: 500;">Atención exclusiva por referencia.</strong> Por la naturaleza personalizada de nuestras experiencias, recibimos únicamente a personas que llegan recomendadas por nuestra comunidad.</p>
 
         <ul class="espacio__features">
           <li>
             <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D4A857" stroke-width="1.5"/><path d="M8 12l3 3 5-6" stroke="#1F6B57" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Espacio íntimo y silencioso, en una zona residencial tranquila
+            <span data-i18n="space.feat1">Espacio íntimo y silencioso, en una zona residencial tranquila</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D4A857" stroke-width="1.5"/><path d="M8 12l3 3 5-6" stroke="#1F6B57" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Sesiones 100% privadas y personalizadas
+            <span data-i18n="space.feat2">Sesiones 100% privadas y personalizadas</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D4A857" stroke-width="1.5"/><path d="M8 12l3 3 5-6" stroke="#1F6B57" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Tecnologías profesionales con respaldo científico
+            <span data-i18n="space.feat3">Tecnologías profesionales con respaldo científico</span>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D4A857" stroke-width="1.5"/><path d="M8 12l3 3 5-6" stroke="#1F6B57" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Acompañamiento humano antes, durante y después de tu proceso
+            <span data-i18n="space.feat4">Acompañamiento humano antes, durante y después de tu proceso</span>
           </li>
         </ul>
       </div>
@@ -1684,17 +2084,15 @@ section { padding: 120px 5%; position: relative; }
 <section class="galeria">
   <div class="container">
     <div class="galeria__head">
-      <div class="section-eyebrow">Vive el espacio</div>
-      <h2 class="section-title">Un rincón <em>único</em> en Cuernavaca.</h2>
-      <p class="section-lead">
-        Cada detalle cuenta una historia: la luz, los aromas, los libros, las obras de arte, las plantas. Aquí no encontrarás una sala clínica —encontrarás un refugio cuidadosamente compuesto para tu transformación.
-      </p>
+      <div class="section-eyebrow" data-i18n="gal.eyebrow">Vive el espacio</div>
+      <h2 class="section-title" data-i18n-html="gal.title">Un rincón <em>único</em> en Cuernavaca.</h2>
+      <p class="section-lead" data-i18n="gal.lead">Cada detalle cuenta una historia: la luz, los aromas, los libros, las obras de arte, las plantas. Aquí no encontrarás una sala clínica —encontrarás un refugio cuidadosamente compuesto para tu transformación.</p>
     </div>
 
     <div class="galeria-grid">
       <div class="gal-item gal--solo">
         <img src="img/espacio-vista-completa.png" alt="Vista del centro Yambee Faber con el sillón inteligente y rincón zen">
-        <div class="gal-item__caption">El espacio principal · Cuernavaca, Morelos</div>
+        <div class="gal-item__caption" data-i18n="gal.caption">El espacio principal · Cuernavaca, Morelos</div>
       </div>
     </div>
   </div>
@@ -1709,35 +2107,33 @@ section { padding: 120px 5%; position: relative; }
       </div>
 
       <div>
-        <div class="section-eyebrow">Tu primera vez con nosotros</div>
-        <h2 class="section-title" style="font-size: clamp(34px, 4.4vw, 52px);">No comenzamos<br>con una <em>sesión</em>.<br>Comenzamos <em>escuchando</em>.</h2>
-        <p style="font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 8px;">
-          Antes de recibirte en nuestro espacio en Cuernavaca, queremos conocerte. Por eso tu primer encuentro con Yambee Faber es una <strong style="color: var(--green-deep);">valoración por videollamada</strong> donde escuchamos tu historia, entendemos tus objetivos y diseñamos juntos el camino más adecuado para ti.
-        </p>
+        <div class="section-eyebrow" data-i18n="val.eyebrow">Tu primera vez con nosotros</div>
+        <h2 class="section-title" style="font-size: clamp(34px, 4.4vw, 52px);" data-i18n-html="val.title">No comenzamos<br>con una <em>sesión</em>.<br>Comenzamos <em>escuchando</em>.</h2>
+        <p style="font-size: 16.5px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 8px;" data-i18n-html="val.lead">Antes de recibirte en nuestro espacio en Cuernavaca, queremos conocerte. Por eso tu primer encuentro con Yambee Faber es una <strong style="color: var(--green-deep);">valoración por videollamada</strong> donde escuchamos tu historia, entendemos tus objetivos y diseñamos juntos el camino más adecuado para ti.</p>
 
         <ol class="valoracion__steps">
           <li class="valoracion__step">
             <div>
-              <h4>Escríbenos por WhatsApp</h4>
-              <p>Indícanos quién te recomendó y cuéntanos brevemente qué te trae a Yambee Faber.</p>
+              <h4 data-i18n="val.step1.title">Escríbenos por WhatsApp</h4>
+              <p data-i18n="val.step1.desc">Indícanos quién te recomendó y cuéntanos brevemente qué te trae a Yambee Faber.</p>
             </div>
           </li>
           <li class="valoracion__step">
             <div>
-              <h4>Agendamos tu videollamada</h4>
-              <p>Coordinamos un horario por Zoom de 30 minutos. Sin costo, sin compromiso.</p>
+              <h4 data-i18n="val.step2.title">Agendamos tu videollamada</h4>
+              <p data-i18n="val.step2.desc">Coordinamos un horario por Zoom de 30 minutos. Sin costo, sin compromiso.</p>
             </div>
           </li>
           <li class="valoracion__step">
             <div>
-              <h4>Diseñamos tu camino</h4>
-              <p>Te explicamos cómo trabajamos, resolvemos tus dudas y trazamos un plan a tu medida.</p>
+              <h4 data-i18n="val.step3.title">Diseñamos tu camino</h4>
+              <p data-i18n="val.step3.desc">Te explicamos cómo trabajamos, resolvemos tus dudas y trazamos un plan a tu medida.</p>
             </div>
           </li>
           <li class="valoracion__step">
             <div>
-              <h4>Te recibimos en el espacio</h4>
-              <p>Si decides comenzar, te esperamos en nuestro santuario en Cuernavaca, Morelos.</p>
+              <h4 data-i18n="val.step4.title">Te recibimos en el espacio</h4>
+              <p data-i18n="val.step4.desc">Si decides comenzar, te esperamos en nuestro santuario en Cuernavaca, Morelos.</p>
             </div>
           </li>
         </ol>
@@ -1747,59 +2143,57 @@ section { padding: 120px 5%; position: relative; }
 </section>
 <section class="beneficios">
   <div class="container">
-    <div class="section-eyebrow">Por qué elegirnos</div>
-    <h2 class="section-title">Una experiencia <em>distinta</em><br>desde el primer momento.</h2>
-    <p class="section-lead">
-      Combinamos lo mejor de la tecnología con la calidez profundamente humana. No te tratamos como un caso —te recibimos como persona.
-    </p>
+    <div class="section-eyebrow" data-i18n="ben.eyebrow">Por qué elegirnos</div>
+    <h2 class="section-title" data-i18n-html="ben.title">Una experiencia <em>distinta</em><br>desde el primer momento.</h2>
+    <p class="section-lead" data-i18n="ben.lead">Combinamos lo mejor de la tecnología con la calidez profundamente humana. No te tratamos como un caso —te recibimos como persona.</p>
 
     <div class="ben-grid">
       <div class="ben-item">
         <div class="ben-item__icon">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V6l-8-4z" stroke="#1F6B57" stroke-width="1.5" fill="none"/><path d="M9 12l2 2 4-4" stroke="#D4A857" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
-        <h4 class="ben-item__title">Tecnologías seguras y no invasivas</h4>
-        <p class="ben-item__desc">Sin agujas, sin medicamentos, sin efectos secundarios significativos. Tu sistema natural hace el trabajo.</p>
+        <h4 class="ben-item__title" data-i18n="ben.b1.title">Tecnologías seguras y no invasivas</h4>
+        <p class="ben-item__desc" data-i18n="ben.b1.desc">Sin agujas, sin medicamentos, sin efectos secundarios significativos. Tu sistema natural hace el trabajo.</p>
       </div>
 
       <div class="ben-item">
         <div class="ben-item__icon">
           <svg viewBox="0 0 24 24" fill="none"><path d="M3 12l9-9 9 9M5 10v10h14V10" stroke="#1F6B57" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="14" r="2" fill="#D4A857"/></svg>
         </div>
-        <h4 class="ben-item__title">Espacio íntimo y acogedor</h4>
-        <p class="ben-item__desc">No es una clínica. Es un santuario diseñado para que te sientas en casa desde el primer instante.</p>
+        <h4 class="ben-item__title" data-i18n="ben.b2.title">Espacio íntimo y acogedor</h4>
+        <p class="ben-item__desc" data-i18n="ben.b2.desc">No es una clínica. Es un santuario diseñado para que te sientas en casa desde el primer instante.</p>
       </div>
 
       <div class="ben-item">
         <div class="ben-item__icon">
           <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#1F6B57" stroke-width="1.5" fill="none"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#1F6B57" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="8" r="1.5" fill="#D4A857"/></svg>
         </div>
-        <h4 class="ben-item__title">Acompañamiento personalizado</h4>
-        <p class="ben-item__desc">Cada experiencia se diseña a partir de quién eres tú, qué buscas y cómo responde tu sistema.</p>
+        <h4 class="ben-item__title" data-i18n="ben.b3.title">Acompañamiento personalizado</h4>
+        <p class="ben-item__desc" data-i18n="ben.b3.desc">Cada experiencia se diseña a partir de quién eres tú, qué buscas y cómo responde tu sistema.</p>
       </div>
 
       <div class="ben-item">
         <div class="ben-item__icon">
           <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#1F6B57" stroke-width="1.5" fill="none"/><path d="M12 7v5l3 3" stroke="#D4A857" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
-        <h4 class="ben-item__title">5+ años de experiencia</h4>
-        <p class="ben-item__desc">Desde 2020 acompañando procesos reales con resultados graduales y sostenibles.</p>
+        <h4 class="ben-item__title" data-i18n="ben.b4.title">5+ años de experiencia</h4>
+        <p class="ben-item__desc" data-i18n="ben.b4.desc">Desde 2020 acompañando procesos reales con resultados graduales y sostenibles.</p>
       </div>
 
       <div class="ben-item">
         <div class="ben-item__icon">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3" stroke="#1F6B57" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="#D4A857"/></svg>
         </div>
-        <h4 class="ben-item__title">Programas con base científica</h4>
-        <p class="ben-item__desc">Nuestras tecnologías se respaldan en literatura científica internacional sobre neurociencia y bienestar.</p>
+        <h4 class="ben-item__title" data-i18n="ben.b5.title">Programas con base científica</h4>
+        <p class="ben-item__desc" data-i18n="ben.b5.desc">Nuestras tecnologías se respaldan en literatura científica internacional sobre neurociencia y bienestar.</p>
       </div>
 
       <div class="ben-item">
         <div class="ben-item__icon">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 Q8 8 12 12 Q16 16 12 22 Q8 16 12 12 Q16 8 12 2Z" stroke="#1F6B57" stroke-width="1.5" fill="#D4A857" fill-opacity="0.2"/></svg>
         </div>
-        <h4 class="ben-item__title">Visión holística-energética</h4>
-        <p class="ben-item__desc">Vemos al ser humano como un todo. Cuerpo, mente, emoción y energía trabajando en armonía.</p>
+        <h4 class="ben-item__title" data-i18n="ben.b6.title">Visión holística-energética</h4>
+        <p class="ben-item__desc" data-i18n="ben.b6.desc">Vemos al ser humano como un todo. Cuerpo, mente, emoción y energía trabajando en armonía.</p>
       </div>
     </div>
   </div>
@@ -1808,32 +2202,28 @@ section { padding: 120px 5%; position: relative; }
 <!-- ========== TESTIMONIOS ========== -->
 <section class="testimonios">
   <div class="container" style="position: relative; z-index: 2;">
-    <div class="section-eyebrow">Voces de nuestra comunidad</div>
-    <h2 class="section-title">Quienes ya viven<br>la <em>experiencia</em>.</h2>
+    <div class="section-eyebrow" data-i18n="test.eyebrow">Voces de nuestra comunidad</div>
+    <h2 class="section-title" data-i18n-html="test.title">Quienes ya viven<br>la <em>experiencia</em>.</h2>
 
     <div class="test-grid">
       <div class="test-card">
-        <div class="test-card__quote">
-          "Buscaba algo que me ayudara a concentrarme mejor. Después de mis sesiones, siento una claridad y relajación que no había experimentado antes. El lugar es cálido y profesional."
-        </div>
+        <div class="test-card__quote" data-i18n="test.t1.quote">"Buscaba algo que me ayudara a concentrarme mejor. Después de mis sesiones, siento una claridad y relajación que no había experimentado antes. El lugar es cálido y profesional."</div>
         <div class="test-card__author">
           <div class="test-card__avatar">A</div>
           <div>
             <div class="test-card__name">Alejandro V.</div>
-            <div class="test-card__role">38 años · Cuernavaca</div>
+            <div class="test-card__role" data-i18n="test.t1.role">38 años · Cuernavaca</div>
           </div>
         </div>
       </div>
 
       <div class="test-card">
-        <div class="test-card__quote">
-          "Me encanta la tranquilidad que siento desde la primera vez que vine. Es parte de mi autocuidado semanal. Encontré aquí algo que ningún otro lugar me había ofrecido."
-        </div>
+        <div class="test-card__quote" data-i18n="test.t2.quote">"Me encanta la tranquilidad que siento desde la primera vez que vine. Es parte de mi autocuidado semanal. Encontré aquí algo que ningún otro lugar me había ofrecido."</div>
         <div class="test-card__author">
           <div class="test-card__avatar">M</div>
           <div>
             <div class="test-card__name">Mariana R.</div>
-            <div class="test-card__role">34 años · Cuernavaca</div>
+            <div class="test-card__role" data-i18n="test.t2.role">34 años · Cuernavaca</div>
           </div>
         </div>
       </div>
@@ -1844,56 +2234,56 @@ section { padding: 120px 5%; position: relative; }
 <!-- ========== FAQ ========== -->
 <section class="faq">
   <div class="container">
-    <div class="section-eyebrow">Preguntas frecuentes</div>
-    <h2 class="section-title">Lo que puedes querer <em>saber</em>.</h2>
+    <div class="section-eyebrow" data-i18n="faq.eyebrow">Preguntas frecuentes</div>
+    <h2 class="section-title" data-i18n-html="faq.title">Lo que puedes querer <em>saber</em>.</h2>
 
     <div class="faq-list">
       <div class="faq-item">
         <div class="faq-item__q">
-          ¿Cómo agendo mi primera valoración?
+          <span data-i18n="faq.q1">¿Cómo agendo mi primera valoración?</span>
           <div class="faq-item__icon"></div>
         </div>
-        <div class="faq-item__a">Escríbenos por WhatsApp desde el botón flotante o por correo a lgalvez@terapiapemf.com indicando quién te recomendó. Coordinaremos una valoración gratuita por Zoom donde escuchamos tus objetivos, te explicamos cómo trabajamos y diseñamos juntos tu programa personalizado.</div>
+        <div class="faq-item__a" data-i18n="faq.a1">Escríbenos por WhatsApp desde el botón flotante o por correo a lgalvez@terapiapemf.com indicando quién te recomendó. Coordinaremos una valoración gratuita por Zoom donde escuchamos tus objetivos, te explicamos cómo trabajamos y diseñamos juntos tu programa personalizado.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-item__q">
-          ¿Por qué atienden sólo por referencia?
+          <span data-i18n="faq.q2">¿Por qué atienden sólo por referencia?</span>
           <div class="faq-item__icon"></div>
         </div>
-        <div class="faq-item__a">Atendemos en un espacio íntimo dentro de nuestra casa en Cuernavaca, lo que nos permite ofrecer una experiencia profundamente personalizada. Recibimos únicamente a personas referidas por nuestra comunidad para preservar la calidad y calidez de cada sesión.</div>
+        <div class="faq-item__a" data-i18n="faq.a2">Atendemos en un espacio íntimo dentro de nuestra casa en Cuernavaca, lo que nos permite ofrecer una experiencia profundamente personalizada. Recibimos únicamente a personas referidas por nuestra comunidad para preservar la calidad y calidez de cada sesión.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-item__q">
-          ¿Las terapias son seguras?
+          <span data-i18n="faq.q3">¿Las terapias son seguras?</span>
           <div class="faq-item__icon"></div>
         </div>
-        <div class="faq-item__a">Sí, son completamente no invasivas y diseñadas para acompañar procesos naturales de bienestar. No generan dolor ni efectos secundarios significativos. En la valoración inicial revisamos tu historia personal para confirmar que las terapias son adecuadas para ti.</div>
+        <div class="faq-item__a" data-i18n="faq.a3">Sí, son completamente no invasivas y diseñadas para acompañar procesos naturales de bienestar. No generan dolor ni efectos secundarios significativos. En la valoración inicial revisamos tu historia personal para confirmar que las terapias son adecuadas para ti.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-item__q">
-          ¿Cuánto dura una sesión?
+          <span data-i18n="faq.q4">¿Cuánto dura una sesión?</span>
           <div class="faq-item__icon"></div>
         </div>
-        <div class="faq-item__a">Entre 30 y 60 minutos según el programa. La mayoría de las personas combina las tecnologías para una experiencia integrada de aproximadamente una hora.</div>
+        <div class="faq-item__a" data-i18n="faq.a4">Entre 30 y 60 minutos según el programa. La mayoría de las personas combina las tecnologías para una experiencia integrada de aproximadamente una hora.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-item__q">
-          ¿Cuántas sesiones necesito?
+          <span data-i18n="faq.q5">¿Cuántas sesiones necesito?</span>
           <div class="faq-item__icon"></div>
         </div>
-        <div class="faq-item__a">Depende de tus objetivos. Algunas personas notan cambios desde la primera sesión, otras requieren un proceso de varias semanas. En tu valoración por Zoom diseñamos juntos un plan realista y a tu medida.</div>
+        <div class="faq-item__a" data-i18n="faq.a5">Depende de tus objetivos. Algunas personas notan cambios desde la primera sesión, otras requieren un proceso de varias semanas. En tu valoración por Zoom diseñamos juntos un plan realista y a tu medida.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-item__q">
-          ¿Necesito alguna preparación?
+          <span data-i18n="faq.q6">¿Necesito alguna preparación?</span>
           <div class="faq-item__icon"></div>
         </div>
-        <div class="faq-item__a">Sólo traer ropa cómoda y una mente abierta. Te recomendamos llegar 10 minutos antes para serenar tu sistema y aprovechar al máximo la experiencia.</div>
+        <div class="faq-item__a" data-i18n="faq.a6">Sólo traer ropa cómoda y una mente abierta. Te recomendamos llegar 10 minutos antes para serenar tu sistema y aprovechar al máximo la experiencia.</div>
       </div>
     </div>
   </div>
@@ -1902,18 +2292,14 @@ section { padding: 120px 5%; position: relative; }
 <!-- ========== CTA FINAL ========== -->
 <section class="cta-final" id="contacto">
   <div class="cta-final__content">
-    <div class="section-eyebrow">Tu primera valoración por Zoom</div>
-    <h1 class="cta-final__title">Empieza tu <em>viaje</em><br>hacia el bienestar profundo.</h1>
-    <p class="cta-final__lead">
-      Agenda una valoración gratuita por Zoom donde escuchamos tu situación, respondemos tus dudas y diseñamos juntos el camino que mejor se adapta a ti. Si decides comenzar, te recibimos en nuestro espacio en Cuernavaca.
-    </p>
+    <div class="section-eyebrow" data-i18n="cta.eyebrow">Tu primera valoración por Zoom</div>
+    <h1 class="cta-final__title" data-i18n-html="cta.title">Empieza tu <em>viaje</em><br>hacia el bienestar profundo.</h1>
+    <p class="cta-final__lead" data-i18n="cta.lead">Agenda una valoración gratuita por Zoom donde escuchamos tu situación, respondemos tus dudas y diseñamos juntos el camino que mejor se adapta a ti. Si decides comenzar, te recibimos en nuestro espacio en Cuernavaca.</p>
     <a href="https://wa.me/527771285666?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20valoraci%C3%B3n%20por%20Zoom%20con%20Yambee%20Faber.%20Vengo%20referido%20por%3A%20" class="cta-final__btn" target="_blank" rel="noopener">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span>Solicitar mi valoración por WhatsApp</span>
+      <span data-i18n="cta.btn">Solicitar mi valoración por WhatsApp</span>
     </a>
-    <div class="cta-final__note">
-      <strong>Atención exclusiva por referencia</strong> · Cuernavaca, Morelos
-    </div>
+    <div class="cta-final__note" data-i18n-html="cta.note"><strong>Atención exclusiva por referencia</strong> · Cuernavaca, Morelos</div>
   </div>
 </section>
 
@@ -1922,42 +2308,40 @@ section { padding: 120px 5%; position: relative; }
   <div class="footer__grid">
     <div>
       <div class="footer__brand-name">Yambee Faber</div>
-      <div class="footer__brand-sub">Centro Holístico-Energético</div>
-      <p class="footer__brand-text">
-        Tecnología suave, bienestar profundo. Un espacio donde la neurociencia y la consciencia se encuentran para acompañar tu camino hacia el equilibrio integral.
-      </p>
+      <div class="footer__brand-sub" data-i18n="foot.brandSub">Centro Holístico-Energético</div>
+      <p class="footer__brand-text" data-i18n="foot.brandText">Tecnología suave, bienestar profundo. Un espacio donde la neurociencia y la consciencia se encuentran para acompañar tu camino hacia el equilibrio integral.</p>
     </div>
 
     <div>
-      <h4 class="footer__heading">Navega</h4>
+      <h4 class="footer__heading" data-i18n="foot.navigate">Navega</h4>
       <ul class="footer__list">
-        <li><a href="#filosofia">Filosofía</a></li>
-        <li><a href="#tecnologias">Tecnologías</a></li>
-        <li><a href="#programas">Programas</a></li>
-        <li><a href="#espacio">El Espacio</a></li>
-        <li><a href="#contacto">Agendar</a></li>
+        <li><a href="#filosofia" data-i18n="nav.philosophy">Filosofía</a></li>
+        <li><a href="#tecnologias" data-i18n="nav.tech">Tecnologías</a></li>
+        <li><a href="#programas" data-i18n="nav.programs">Programas</a></li>
+        <li><a href="#espacio" data-i18n="nav.space">El Espacio</a></li>
+        <li><a href="#contacto" data-i18n="foot.book">Agendar</a></li>
       </ul>
     </div>
 
     <div>
-      <h4 class="footer__heading">Programas</h4>
+      <h4 class="footer__heading" data-i18n="foot.progHeading">Programas</h4>
       <ul class="footer__list">
-        <li>Enfoque & Rendimiento</li>
-        <li>Calma & Restauración</li>
-        <li>Creatividad & Aprendizaje</li>
-        <li>Sueño & Exploración</li>
+        <li data-i18n="prog.cat1.title">Enfoque & Rendimiento</li>
+        <li data-i18n="prog.cat2.title">Calma & Restauración</li>
+        <li data-i18n="prog.cat3.title">Creatividad & Aprendizaje</li>
+        <li data-i18n="foot.progSleep">Sueño & Exploración</li>
       </ul>
     </div>
 
     <div>
-      <h4 class="footer__heading">Contacto</h4>
+      <h4 class="footer__heading" data-i18n="foot.contact">Contacto</h4>
       <div class="footer__contact-item">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-4.4-3.6-8-8-8z" stroke="#D4A857" stroke-width="1.5"/><circle cx="12" cy="10" r="3" stroke="#D4A857" stroke-width="1.5"/></svg>
-        Cuernavaca, Morelos<br>(atención sólo por referencia)
+        <span data-i18n-html="foot.location">Cuernavaca, Morelos<br>(atención sólo por referencia)</span>
       </div>
       <div class="footer__contact-item">
         <svg viewBox="0 0 24 24" fill="#D4A857"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <a href="https://wa.me/527771285666?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20valoraci%C3%B3n%20por%20Zoom%20con%20Yambee%20Faber.%20Vengo%20referido%20por%3A%20" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+        <a href="https://wa.me/527771285666?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20valoraci%C3%B3n%20por%20Zoom%20con%20Yambee%20Faber.%20Vengo%20referido%20por%3A%20" target="_blank" rel="noopener" data-cta="primary" data-i18n="foot.waLink">Escríbenos por WhatsApp</a>
       </div>
       <div class="footer__contact-item">
         <svg viewBox="0 0 24 24" fill="none"><path d="M3 8l9 6 9-6M3 8v10a2 2 0 002 2h14a2 2 0 002-2V8M3 8l2-2h14l2 2" stroke="#D4A857" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1971,8 +2355,8 @@ section { padding: 120px 5%; position: relative; }
   </div>
 
   <div class="footer__bottom">
-    <div>© 2026 Yambee Faber · Todos los derechos reservados</div>
-    <div>Tecnología suave · Bienestar profundo · No invasivo</div>
+    <div data-i18n="foot.copy">© 2026 Yambee Faber · Todos los derechos reservados</div>
+    <div data-i18n="foot.tagline">Tecnología suave · Bienestar profundo · No invasivo</div>
   </div>
 </footer>
 
@@ -1982,14 +2366,527 @@ section { padding: 120px 5%; position: relative; }
 </a>
 
 <script>
+// ============================================================
+// DICCIONARIO DE TRADUCCIONES (ES / EN)
+// ============================================================
+const TRANSLATIONS = {
+  es: {
+    // INTRO SPLASH
+    'intro.eyebrow': 'Yambee Faber · Cuernavaca, Morelos',
+    'intro.title1': 'Recarga tu',
+    'intro.titleEm': 'energía',
+    'intro.title2': 'Eleva tu mente.',
+    'intro.lead': 'Bienvenido a un espacio donde la <strong>neurociencia</strong> se encuentra con la <strong>energía vital</strong>. Nuestras terapias <strong>Óptico-Acústicas</strong> y de <strong>Campos Electromagnéticos Pulsados (PEMF)</strong> son <strong>100% no invasivas</strong> y trabajan con la inteligencia natural de tu cuerpo para potenciar tu rendimiento intelectual, equilibrar tus emociones y restaurar tu vitalidad profunda.',
+    'intro.benefit1': 'Sin medicamentos',
+    'intro.benefit2': 'Sin efectos secundarios',
+    'intro.benefit3': 'Resultados desde la primera sesión',
+    'intro.cta': 'Agendar mi valoración gratuita',
+    'intro.skip': 'O explorar el sitio primero',
+    // NAV
+    'nav.philosophy': 'Filosofía',
+    'nav.tech': 'Tecnologías',
+    'nav.programs': 'Programas',
+    'nav.space': 'El Espacio',
+    'nav.cta': 'Agendar Valoración →',
+    // HERO
+    'hero.eyebrow': 'Centro de Bienestar Holístico-Energético · Cuernavaca',
+    'hero.title': 'Recarga tu <em>energía</em>.<br><strong>Eleva tu mente.</strong><br>Equilibra tu ser.',
+    'hero.lead': 'Una experiencia exclusiva que reúne la ciencia de las ondas cerebrales y los campos electromagnéticos pulsados con la sabiduría de las terapias holísticas. Despierta tu rendimiento intelectual, serena tu mundo emocional y reconecta con tu vitalidad esencial.',
+    'hero.btnPrimary': 'Agendar valoración por Zoom',
+    'hero.btnSecondary': 'Conocer las terapias →',
+    'hero.meta1': 'años acompañando',
+    'hero.meta2': 'tecnologías integradas',
+    'hero.meta3': 'no invasivo',
+    // FILOSOFÍA
+    'phil.eyebrow': 'Nuestra esencia',
+    'phil.title': 'No somos una clínica.<br>Acude a nuestro <em>centro de bienestar Integral</em>.',
+    'phil.lead1': 'En Yambee Faber creemos que el verdadero bienestar nace cuando la ciencia y la consciencia trabajan juntas. Combinamos tecnologías de neurociencia validadas internacionalmente con un enfoque holístico-energético, creando experiencias profundamente transformadoras.',
+    'phil.lead2': 'Aquí no tratamos enfermedades: <strong style="color: var(--green-deep); font-weight: 500;">acompañamos personas</strong> que buscan elevar su rendimiento intelectual, armonizar sus emociones, recuperar su energía vital y vivir desde un lugar de equilibrio profundo.',
+    'phil.quote': '"Cada sesión es un viaje hacia tu propia frecuencia natural —donde tu cuerpo recuerda cómo sentirse en armonía y tu mente descubre su mayor claridad."',
+    'phil.signature': '— Filosofía Yambee Faber',
+    // TECNOLOGÍAS
+    'tech.eyebrow': 'Las tres tecnologías',
+    'tech.title': 'Una sinfonía de <em>frecuencias</em><br>para tu bienestar integral.',
+    'tech.lead': 'Cada tecnología actúa como un instrumento distinto en una misma orquesta. Combinadas, despiertan en tu sistema una respuesta natural de equilibrio, regeneración y vitalidad —sin medicamentos, sin invasión, sin efectos secundarios.',
+    'tech.card1.title': 'Estimulación Óptico-Acústica',
+    'tech.card1.sub': 'Lentes de fototerapia + ondas sonoras',
+    'tech.card1.desc': 'A través de patrones precisos de luz y sonido, guiamos tu cerebro hacia los estados óptimos de cada momento: enfoque profundo, calma absoluta, creatividad expandida o sueño reparador.',
+    'tech.card1.li1': 'Eleva la concentración y rendimiento mental',
+    'tech.card1.li2': 'Reduce ansiedad y estrés en minutos',
+    'tech.card1.li3': 'Potencia memoria, aprendizaje y creatividad',
+    'tech.card1.li4': 'Induce estados meditativos profundos',
+    'tech.card2.title': 'Terapia PEMF',
+    'tech.card2.sub': 'Campos electromagnéticos pulsados',
+    'tech.card2.desc': 'Como una recarga natural para cada célula de tu cuerpo. Los campos magnéticos pulsados restauran el potencial energético celular, promoviendo regeneración profunda, vitalidad y bienestar físico.',
+    'tech.card2.li1': 'Recarga la energía celular y vital',
+    'tech.card2.li2': 'Apoya la regeneración natural del cuerpo',
+    'tech.card2.li3': 'Mejora circulación y oxigenación',
+    'tech.card2.li4': 'Equilibra el sistema nervioso',
+    'tech.card3.title': 'Sillón Inteligente',
+    'tech.card3.sub': 'Descompresión y relajación profunda',
+    'tech.card3.desc': 'La experiencia comienza por el cuerpo. Un sillón terapéutico de última generación libera tensiones musculares profundas, mejora la circulación y prepara tu sistema para recibir el resto de las terapias.',
+    'tech.card3.li1': 'Libera contracturas y tensión profunda',
+    'tech.card3.li2': 'Activa la circulación sanguínea',
+    'tech.card3.li3': 'Reduce estrés físico acumulado',
+    'tech.card3.li4': 'Crea estado óptimo de receptividad',
+    // PROGRAMAS
+    'prog.eyebrow': 'Programas a medida',
+    'prog.title': 'El <em>lenguaje</em> de tu mente,<br>traducido a experiencias.',
+    'prog.lead': 'Tu cerebro habla en cuatro frecuencias principales. Cada una corresponde a un estado de consciencia. Nuestros programas te llevan al estado exacto que necesitas, cuando lo necesitas.',
+    'prog.beta': 'Concentración, alerta, alto rendimiento intelectual',
+    'prog.alpha': 'Relajación consciente, calma, integración mente-cuerpo',
+    'prog.theta': 'Meditación profunda, creatividad, memoria, aprendizaje',
+    'prog.delta': 'Sueño profundo, regeneración celular, sanación',
+    'prog.cat1.title': 'Enfoque & Rendimiento',
+    'prog.cat1.sub': 'Para mente clara y productiva',
+    'prog.cat1.desc': 'Diseñado para profesionistas, estudiantes y personas que buscan elevar su capacidad cognitiva. Estimulamos los estados Beta-Alfa para máxima concentración, claridad mental y energía sostenida.',
+    'prog.cat1.tag1': 'Concentración',
+    'prog.cat1.tag2': 'Alto rendimiento',
+    'prog.cat1.tag3': 'Energía mental',
+    'prog.cat2.title': 'Calma & Restauración',
+    'prog.cat2.sub': 'Para serenar y reequilibrar',
+    'prog.cat2.desc': 'Para quienes viven con estrés, ansiedad o agotamiento emocional. Llevamos tu sistema a los ritmos Alfa-Theta donde el cuerpo entra en su modo natural de restauración profunda.',
+    'prog.cat2.tag1': 'Anti-estrés',
+    'prog.cat2.tag2': 'Equilibrio emocional',
+    'prog.cat2.tag3': 'Relajación',
+    'prog.cat3.title': 'Creatividad & Aprendizaje',
+    'prog.cat3.sub': 'Para expandir tu potencial',
+    'prog.cat3.desc': 'Activa los estados Theta donde florecen la inspiración, la memoria y la asimilación profunda. Ideal para creativos, escritores, artistas y quienes están en procesos intensos de aprendizaje.',
+    'prog.cat3.tag1': 'Inspiración',
+    'prog.cat3.tag2': 'Memoria',
+    'prog.cat3.tag3': 'Aprendizaje',
+    'prog.cat4.title': 'Sueño & Exploración Interior',
+    'prog.cat4.sub': 'Para reconectar contigo mismo',
+    'prog.cat4.desc': 'Estados Theta-Delta para descanso profundo, recuerdo de sueños y autoconocimiento. Pensado para personas con insomnio o quienes buscan un trabajo más espiritual y consciente.',
+    'prog.cat4.tag1': 'Sueño profundo',
+    'prog.cat4.tag2': 'Meditación',
+    'prog.cat4.tag3': 'Auto-conocimiento',
+    // AUDIENCIAS
+    'aud.eyebrow': 'Para quién es Yambee Faber',
+    'aud.title': 'Si buscas <em>algo más</em><br>que sólo descansar.',
+    'aud.lead': 'Acompañamos a personas conscientes que entienden que el bienestar es una práctica integral. Que el cuerpo, la mente y la energía son inseparables.',
+    'aud.card1.title': 'Profesionistas con estrés y ansiedad',
+    'aud.card1.desc': 'Vives demandas constantes y necesitas un espacio para serenar el sistema nervioso, recuperar claridad y volver a tu eje sin medicamentos.',
+    'aud.card2.title': 'Estudiantes y mentes en alto rendimiento',
+    'aud.card2.desc': 'Buscas sostener concentración prolongada, asimilar información compleja, mejorar memoria y rendir en exámenes o proyectos exigentes.',
+    'aud.card3.title': 'Adultos mayores y bienestar cognitivo',
+    'aud.card3.desc': 'Quieres mantener una mente ágil, claridad, memoria y vitalidad como parte de un envejecimiento consciente y activo.',
+    'aud.card4.title': 'Deportistas y alto rendimiento',
+    'aud.card4.desc': 'Optimizas tu recuperación, regeneración celular, enfoque mental pre-competencia y rendimiento físico al máximo nivel.',
+    'aud.card5.title': 'Personas con insomnio',
+    'aud.card5.desc': 'Tu sueño no es reparador. Buscas restaurar tus ciclos naturales para descansar profundamente y despertar verdaderamente renovado.',
+    'aud.card6.title': 'Buscadores holístico-espirituales',
+    'aud.card6.desc': 'Tu camino es de consciencia. Quieres profundizar en meditación, exploración interior y conexión con tu energía esencial desde una vía moderna.',
+    // ESPACIO
+    'space.eyebrow': 'El espacio',
+    'space.title': 'Un santuario en el corazón de <em>Cuernavaca</em>.',
+    'space.lead1': 'Cuidamos cada detalle para que tu sesión sea verdaderamente transformadora. Atendemos en un espacio íntimo y sereno —no una clínica— donde la calidez del trato humano se encuentra con tecnología de vanguardia.',
+    'space.lead2': '<strong style="color: var(--green-deep); font-weight: 500;">Atención exclusiva por referencia.</strong> Por la naturaleza personalizada de nuestras experiencias, recibimos únicamente a personas que llegan recomendadas por nuestra comunidad.',
+    'space.feat1': 'Espacio íntimo y silencioso, en una zona residencial tranquila',
+    'space.feat2': 'Sesiones 100% privadas y personalizadas',
+    'space.feat3': 'Tecnologías profesionales con respaldo científico',
+    'space.feat4': 'Acompañamiento humano antes, durante y después de tu proceso',
+    // GALERÍA
+    'gal.eyebrow': 'Vive el espacio',
+    'gal.title': 'Un rincón <em>único</em> en Cuernavaca.',
+    'gal.lead': 'Cada detalle cuenta una historia: la luz, los aromas, los libros, las obras de arte, las plantas. Aquí no encontrarás una sala clínica —encontrarás un refugio cuidadosamente compuesto para tu transformación.',
+    'gal.caption': 'El espacio principal · Cuernavaca, Morelos',
+    // VALORACIÓN
+    'val.eyebrow': 'Tu primera vez con nosotros',
+    'val.title': 'No comenzamos<br>con una <em>sesión</em>.<br>Comenzamos <em>escuchando</em>.',
+    'val.lead': 'Antes de recibirte en nuestro espacio en Cuernavaca, queremos conocerte. Por eso tu primer encuentro con Yambee Faber es una <strong style="color: var(--green-deep);">valoración por videollamada</strong> donde escuchamos tu historia, entendemos tus objetivos y diseñamos juntos el camino más adecuado para ti.',
+    'val.step1.title': 'Escríbenos por WhatsApp',
+    'val.step1.desc': 'Indícanos quién te recomendó y cuéntanos brevemente qué te trae a Yambee Faber.',
+    'val.step2.title': 'Agendamos tu videollamada',
+    'val.step2.desc': 'Coordinamos un horario por Zoom de 30 minutos. Sin costo, sin compromiso.',
+    'val.step3.title': 'Diseñamos tu camino',
+    'val.step3.desc': 'Te explicamos cómo trabajamos, resolvemos tus dudas y trazamos un plan a tu medida.',
+    'val.step4.title': 'Te recibimos en el espacio',
+    'val.step4.desc': 'Si decides comenzar, te esperamos en nuestro santuario en Cuernavaca, Morelos.',
+    // BENEFICIOS
+    'ben.eyebrow': 'Por qué elegirnos',
+    'ben.title': 'Una experiencia <em>distinta</em><br>desde el primer momento.',
+    'ben.lead': 'Combinamos lo mejor de la tecnología con la calidez profundamente humana. No te tratamos como un caso —te recibimos como persona.',
+    'ben.b1.title': 'Tecnologías seguras y no invasivas',
+    'ben.b1.desc': 'Sin agujas, sin medicamentos, sin efectos secundarios significativos. Tu sistema natural hace el trabajo.',
+    'ben.b2.title': 'Espacio íntimo y acogedor',
+    'ben.b2.desc': 'No es una clínica. Es un santuario diseñado para que te sientas en casa desde el primer instante.',
+    'ben.b3.title': 'Acompañamiento personalizado',
+    'ben.b3.desc': 'Cada experiencia se diseña a partir de quién eres tú, qué buscas y cómo responde tu sistema.',
+    'ben.b4.title': '5+ años de experiencia',
+    'ben.b4.desc': 'Desde 2020 acompañando procesos reales con resultados graduales y sostenibles.',
+    'ben.b5.title': 'Programas con base científica',
+    'ben.b5.desc': 'Nuestras tecnologías se respaldan en literatura científica internacional sobre neurociencia y bienestar.',
+    'ben.b6.title': 'Visión holística-energética',
+    'ben.b6.desc': 'Vemos al ser humano como un todo. Cuerpo, mente, emoción y energía trabajando en armonía.',
+    // TESTIMONIOS
+    'test.eyebrow': 'Voces de nuestra comunidad',
+    'test.title': 'Quienes ya viven<br>la <em>experiencia</em>.',
+    'test.t1.quote': '"Buscaba algo que me ayudara a concentrarme mejor. Después de mis sesiones, siento una claridad y relajación que no había experimentado antes. El lugar es cálido y profesional."',
+    'test.t1.role': '38 años · Cuernavaca',
+    'test.t2.quote': '"Me encanta la tranquilidad que siento desde la primera vez que vine. Es parte de mi autocuidado semanal. Encontré aquí algo que ningún otro lugar me había ofrecido."',
+    'test.t2.role': '34 años · Cuernavaca',
+    // FAQ
+    'faq.eyebrow': 'Preguntas frecuentes',
+    'faq.title': 'Lo que puedes querer <em>saber</em>.',
+    'faq.q1': '¿Cómo agendo mi primera valoración?',
+    'faq.a1': 'Escríbenos por WhatsApp desde el botón flotante o por correo a lgalvez@terapiapemf.com indicando quién te recomendó. Coordinaremos una valoración gratuita por Zoom donde escuchamos tus objetivos, te explicamos cómo trabajamos y diseñamos juntos tu programa personalizado.',
+    'faq.q2': '¿Por qué atienden sólo por referencia?',
+    'faq.a2': 'Atendemos en un espacio íntimo dentro de nuestra casa en Cuernavaca, lo que nos permite ofrecer una experiencia profundamente personalizada. Recibimos únicamente a personas referidas por nuestra comunidad para preservar la calidad y calidez de cada sesión.',
+    'faq.q3': '¿Las terapias son seguras?',
+    'faq.a3': 'Sí, son completamente no invasivas y diseñadas para acompañar procesos naturales de bienestar. No generan dolor ni efectos secundarios significativos. En la valoración inicial revisamos tu historia personal para confirmar que las terapias son adecuadas para ti.',
+    'faq.q4': '¿Cuánto dura una sesión?',
+    'faq.a4': 'Entre 30 y 60 minutos según el programa. La mayoría de las personas combina las tecnologías para una experiencia integrada de aproximadamente una hora.',
+    'faq.q5': '¿Cuántas sesiones necesito?',
+    'faq.a5': 'Depende de tus objetivos. Algunas personas notan cambios desde la primera sesión, otras requieren un proceso de varias semanas. En tu valoración por Zoom diseñamos juntos un plan realista y a tu medida.',
+    'faq.q6': '¿Necesito alguna preparación?',
+    'faq.a6': 'Sólo traer ropa cómoda y una mente abierta. Te recomendamos llegar 10 minutos antes para serenar tu sistema y aprovechar al máximo la experiencia.',
+    // CTA FINAL
+    'cta.eyebrow': 'Tu primera valoración por Zoom',
+    'cta.title': 'Empieza tu <em>viaje</em><br>hacia el bienestar profundo.',
+    'cta.lead': 'Agenda una valoración gratuita por Zoom donde escuchamos tu situación, respondemos tus dudas y diseñamos juntos el camino que mejor se adapta a ti. Si decides comenzar, te recibimos en nuestro espacio en Cuernavaca.',
+    'cta.btn': 'Solicitar mi valoración por WhatsApp',
+    'cta.note': '<strong>Atención exclusiva por referencia</strong> · Cuernavaca, Morelos',
+    // FOOTER
+    'foot.brandSub': 'Centro Holístico-Energético',
+    'foot.brandText': 'Tecnología suave, bienestar profundo. Un espacio donde la neurociencia y la consciencia se encuentran para acompañar tu camino hacia el equilibrio integral.',
+    'foot.navigate': 'Navega',
+    'foot.book': 'Agendar',
+    'foot.progHeading': 'Programas',
+    'foot.progSleep': 'Sueño & Exploración',
+    'foot.contact': 'Contacto',
+    'foot.location': 'Cuernavaca, Morelos<br>(atención sólo por referencia)',
+    'foot.waLink': 'Escríbenos por WhatsApp',
+    'foot.copy': '© 2026 Yambee Faber · Todos los derechos reservados',
+    'foot.tagline': 'Tecnología suave · Bienestar profundo · No invasivo'
+  },
+  en: {
+    // INTRO SPLASH
+    'intro.eyebrow': 'Yambee Faber · Cuernavaca, Mexico',
+    'intro.title1': 'Recharge your',
+    'intro.titleEm': 'energy',
+    'intro.title2': 'Elevate your mind.',
+    'intro.lead': 'Welcome to a space where <strong>neuroscience</strong> meets <strong>vital energy</strong>. Our <strong>Optical-Acoustic</strong> and <strong>Pulsed Electromagnetic Field (PEMF)</strong> therapies are <strong>100% non-invasive</strong> and work with your body\'s natural intelligence to enhance your intellectual performance, balance your emotions, and restore your deep vitality.',
+    'intro.benefit1': 'No medications',
+    'intro.benefit2': 'No side effects',
+    'intro.benefit3': 'Results from the first session',
+    'intro.cta': 'Book my free assessment',
+    'intro.skip': 'Or explore the site first',
+    // NAV
+    'nav.philosophy': 'Philosophy',
+    'nav.tech': 'Technologies',
+    'nav.programs': 'Programs',
+    'nav.space': 'The Space',
+    'nav.cta': 'Book Assessment →',
+    // HERO
+    'hero.eyebrow': 'Holistic-Energetic Wellness Center · Cuernavaca, Mexico',
+    'hero.title': 'Recharge your <em>energy</em>.<br><strong>Elevate your mind.</strong><br>Balance your being.',
+    'hero.lead': 'An exclusive experience that brings together the science of brainwaves and pulsed electromagnetic fields with the wisdom of holistic therapies. Awaken your intellectual performance, calm your emotional world, and reconnect with your essential vitality.',
+    'hero.btnPrimary': 'Book Zoom assessment',
+    'hero.btnSecondary': 'Discover the therapies →',
+    'hero.meta1': 'years of practice',
+    'hero.meta2': 'integrated technologies',
+    'hero.meta3': 'non-invasive',
+    // PHILOSOPHY
+    'phil.eyebrow': 'Our essence',
+    'phil.title': 'We are not a clinic.<br>Visit our <em>Integral Wellness Center</em>.',
+    'phil.lead1': 'At Yambee Faber we believe that true wellness is born when science and consciousness work together. We combine internationally validated neuroscience technologies with a holistic-energetic approach, creating deeply transformative experiences.',
+    'phil.lead2': 'We do not treat illnesses here: <strong style="color: var(--green-deep); font-weight: 500;">we accompany people</strong> who seek to elevate their intellectual performance, harmonize their emotions, recover their vital energy, and live from a place of deep balance.',
+    'phil.quote': '"Each session is a journey toward your own natural frequency —where your body remembers how to feel in harmony and your mind discovers its greatest clarity."',
+    'phil.signature': '— Yambee Faber Philosophy',
+    // TECHNOLOGIES
+    'tech.eyebrow': 'The three technologies',
+    'tech.title': 'A symphony of <em>frequencies</em><br>for your integral wellness.',
+    'tech.lead': 'Each technology acts as a different instrument in the same orchestra. Combined, they awaken in your system a natural response of balance, regeneration, and vitality —without medications, without invasion, without side effects.',
+    'tech.card1.title': 'Optical-Acoustic Stimulation',
+    'tech.card1.sub': 'Light therapy glasses + sound waves',
+    'tech.card1.desc': 'Through precise patterns of light and sound, we guide your brain toward optimal states for each moment: deep focus, absolute calm, expanded creativity, or restorative sleep.',
+    'tech.card1.li1': 'Boosts concentration and mental performance',
+    'tech.card1.li2': 'Reduces anxiety and stress within minutes',
+    'tech.card1.li3': 'Enhances memory, learning, and creativity',
+    'tech.card1.li4': 'Induces deep meditative states',
+    'tech.card2.title': 'PEMF Therapy',
+    'tech.card2.sub': 'Pulsed electromagnetic fields',
+    'tech.card2.desc': 'Like a natural recharge for every cell in your body. Pulsed magnetic fields restore cellular energy potential, promoting deep regeneration, vitality, and physical wellbeing.',
+    'tech.card2.li1': 'Recharges cellular and vital energy',
+    'tech.card2.li2': 'Supports the body\'s natural regeneration',
+    'tech.card2.li3': 'Improves circulation and oxygenation',
+    'tech.card2.li4': 'Balances the nervous system',
+    'tech.card3.title': 'Smart Therapy Chair',
+    'tech.card3.sub': 'Decompression and deep relaxation',
+    'tech.card3.desc': 'The experience begins with the body. A state-of-the-art therapeutic chair releases deep muscular tension, improves circulation, and prepares your system to receive the rest of the therapies.',
+    'tech.card3.li1': 'Releases deep tension and contractures',
+    'tech.card3.li2': 'Activates blood circulation',
+    'tech.card3.li3': 'Reduces accumulated physical stress',
+    'tech.card3.li4': 'Creates an optimal state of receptivity',
+    // PROGRAMS
+    'prog.eyebrow': 'Tailored programs',
+    'prog.title': 'The <em>language</em> of your mind,<br>translated into experiences.',
+    'prog.lead': 'Your brain speaks in four main frequencies. Each corresponds to a state of consciousness. Our programs take you to the exact state you need, when you need it.',
+    'prog.beta': 'Concentration, alertness, high intellectual performance',
+    'prog.alpha': 'Conscious relaxation, calm, mind-body integration',
+    'prog.theta': 'Deep meditation, creativity, memory, learning',
+    'prog.delta': 'Deep sleep, cellular regeneration, healing',
+    'prog.cat1.title': 'Focus & Performance',
+    'prog.cat1.sub': 'For a clear and productive mind',
+    'prog.cat1.desc': 'Designed for professionals, students, and people seeking to elevate their cognitive capacity. We stimulate Beta-Alpha states for maximum concentration, mental clarity, and sustained energy.',
+    'prog.cat1.tag1': 'Concentration',
+    'prog.cat1.tag2': 'High performance',
+    'prog.cat1.tag3': 'Mental energy',
+    'prog.cat2.title': 'Calm & Restoration',
+    'prog.cat2.sub': 'To soothe and rebalance',
+    'prog.cat2.desc': 'For those living with stress, anxiety, or emotional exhaustion. We bring your system to Alpha-Theta rhythms where the body enters its natural mode of deep restoration.',
+    'prog.cat2.tag1': 'Anti-stress',
+    'prog.cat2.tag2': 'Emotional balance',
+    'prog.cat2.tag3': 'Relaxation',
+    'prog.cat3.title': 'Creativity & Learning',
+    'prog.cat3.sub': 'To expand your potential',
+    'prog.cat3.desc': 'Activates the Theta states where inspiration, memory, and deep assimilation flourish. Ideal for creatives, writers, artists, and those in intense learning processes.',
+    'prog.cat3.tag1': 'Inspiration',
+    'prog.cat3.tag2': 'Memory',
+    'prog.cat3.tag3': 'Learning',
+    'prog.cat4.title': 'Sleep & Inner Exploration',
+    'prog.cat4.sub': 'To reconnect with yourself',
+    'prog.cat4.desc': 'Theta-Delta states for deep rest, dream recall, and self-knowledge. Designed for people with insomnia or those seeking a more spiritual and conscious work.',
+    'prog.cat4.tag1': 'Deep sleep',
+    'prog.cat4.tag2': 'Meditation',
+    'prog.cat4.tag3': 'Self-knowledge',
+    // AUDIENCES
+    'aud.eyebrow': 'Who Yambee Faber is for',
+    'aud.title': 'If you seek <em>something more</em><br>than just rest.',
+    'aud.lead': 'We accompany conscious people who understand that wellness is an integral practice. That body, mind, and energy are inseparable.',
+    'aud.card1.title': 'Professionals with stress and anxiety',
+    'aud.card1.desc': 'You face constant demands and need a space to calm your nervous system, recover clarity, and return to your center —without medications.',
+    'aud.card2.title': 'Students and high-performance minds',
+    'aud.card2.desc': 'You want to sustain prolonged focus, absorb complex information, improve memory, and excel in demanding exams or projects.',
+    'aud.card3.title': 'Older adults and cognitive wellness',
+    'aud.card3.desc': 'You want to maintain a sharp mind, clarity, memory, and vitality as part of conscious and active aging.',
+    'aud.card4.title': 'Athletes and high performance',
+    'aud.card4.desc': 'You optimize your recovery, cellular regeneration, pre-competition mental focus, and physical performance at the highest level.',
+    'aud.card5.title': 'People with insomnia',
+    'aud.card5.desc': 'Your sleep is not restorative. You want to restore your natural cycles to rest deeply and wake up truly renewed.',
+    'aud.card6.title': 'Holistic-spiritual seekers',
+    'aud.card6.desc': 'Your path is one of consciousness. You want to deepen meditation, inner exploration, and connection with your essential energy through a modern path.',
+    // SPACE
+    'space.eyebrow': 'The space',
+    'space.title': 'A sanctuary in the heart of <em>Cuernavaca</em>.',
+    'space.lead1': 'We care for every detail to make your session truly transformative. We welcome you in an intimate and serene space —not a clinic— where the warmth of human treatment meets cutting-edge technology.',
+    'space.lead2': '<strong style="color: var(--green-deep); font-weight: 500;">Exclusive attention by referral.</strong> Due to the personalized nature of our experiences, we welcome only people who come recommended by our community.',
+    'space.feat1': 'Intimate and quiet space, in a peaceful residential area',
+    'space.feat2': '100% private and personalized sessions',
+    'space.feat3': 'Professional technologies with scientific backing',
+    'space.feat4': 'Human accompaniment before, during, and after your process',
+    // GALLERY
+    'gal.eyebrow': 'Experience the space',
+    'gal.title': 'A <em>unique</em> corner in Cuernavaca.',
+    'gal.lead': 'Every detail tells a story: the light, the aromas, the books, the artwork, the plants. You will not find a clinical room here —you will find a sanctuary carefully composed for your transformation.',
+    'gal.caption': 'The main space · Cuernavaca, Mexico',
+    // ASSESSMENT
+    'val.eyebrow': 'Your first time with us',
+    'val.title': 'We don\'t begin<br>with a <em>session</em>.<br>We begin by <em>listening</em>.',
+    'val.lead': 'Before welcoming you to our space in Cuernavaca, we want to know you. That\'s why your first encounter with Yambee Faber is a <strong style="color: var(--green-deep);">video call assessment</strong> where we listen to your story, understand your goals, and design together the path most suitable for you.',
+    'val.step1.title': 'Write to us on WhatsApp',
+    'val.step1.desc': 'Tell us who recommended you and briefly share what brings you to Yambee Faber.',
+    'val.step2.title': 'We schedule your video call',
+    'val.step2.desc': 'We coordinate a 30-minute Zoom slot. No cost, no commitment.',
+    'val.step3.title': 'We design your path',
+    'val.step3.desc': 'We explain how we work, answer your questions, and outline a tailored plan.',
+    'val.step4.title': 'We welcome you to the space',
+    'val.step4.desc': 'If you decide to begin, we\'ll be waiting for you at our sanctuary in Cuernavaca, Mexico.',
+    // BENEFITS
+    'ben.eyebrow': 'Why choose us',
+    'ben.title': 'A <em>different</em> experience<br>from the very first moment.',
+    'ben.lead': 'We combine the best of technology with deeply human warmth. We don\'t treat you as a case —we welcome you as a person.',
+    'ben.b1.title': 'Safe and non-invasive technologies',
+    'ben.b1.desc': 'No needles, no medications, no significant side effects. Your natural system does the work.',
+    'ben.b2.title': 'Intimate and welcoming space',
+    'ben.b2.desc': 'It\'s not a clinic. It\'s a sanctuary designed to make you feel at home from the very first moment.',
+    'ben.b3.title': 'Personalized accompaniment',
+    'ben.b3.desc': 'Each experience is designed based on who you are, what you seek, and how your system responds.',
+    'ben.b4.title': '5+ years of experience',
+    'ben.b4.desc': 'Since 2020, accompanying real processes with gradual and sustainable results.',
+    'ben.b5.title': 'Programs with scientific basis',
+    'ben.b5.desc': 'Our technologies are backed by international scientific literature on neuroscience and wellness.',
+    'ben.b6.title': 'Holistic-energetic vision',
+    'ben.b6.desc': 'We see the human being as a whole. Body, mind, emotion, and energy working in harmony.',
+    // TESTIMONIALS
+    'test.eyebrow': 'Voices from our community',
+    'test.title': 'Those who already live<br>the <em>experience</em>.',
+    'test.t1.quote': '"I was looking for something to help me concentrate better. After my sessions, I feel a clarity and relaxation I had never experienced before. The place is warm and professional."',
+    'test.t1.role': '38 years old · Cuernavaca',
+    'test.t2.quote': '"I love the tranquility I feel from the very first time I came. It\'s part of my weekly self-care. I found here something that no other place had offered me."',
+    'test.t2.role': '34 years old · Cuernavaca',
+    // FAQ
+    'faq.eyebrow': 'Frequently asked questions',
+    'faq.title': 'What you may want to <em>know</em>.',
+    'faq.q1': 'How do I book my first assessment?',
+    'faq.a1': 'Write to us on WhatsApp from the floating button or by email at lgalvez@terapiapemf.com indicating who recommended you. We will coordinate a free Zoom assessment where we listen to your goals, explain how we work, and design your personalized program together.',
+    'faq.q2': 'Why do you only attend by referral?',
+    'faq.a2': 'We welcome guests in an intimate space inside our home in Cuernavaca, which allows us to offer a deeply personalized experience. We accept only people referred by our community to preserve the quality and warmth of each session.',
+    'faq.q3': 'Are the therapies safe?',
+    'faq.a3': 'Yes, they are completely non-invasive and designed to accompany natural wellness processes. They cause no pain or significant side effects. In the initial assessment we review your personal history to confirm the therapies are right for you.',
+    'faq.q4': 'How long is a session?',
+    'faq.a4': 'Between 30 and 60 minutes depending on the program. Most people combine the technologies for an integrated experience of approximately one hour.',
+    'faq.q5': 'How many sessions do I need?',
+    'faq.a5': 'It depends on your goals. Some people notice changes from the first session, others require a process of several weeks. In your Zoom assessment we design a realistic and tailored plan together.',
+    'faq.q6': 'Do I need any preparation?',
+    'faq.a6': 'Just bring comfortable clothing and an open mind. We recommend arriving 10 minutes early to settle your system and make the most of the experience.',
+    // FINAL CTA
+    'cta.eyebrow': 'Your first Zoom assessment',
+    'cta.title': 'Begin your <em>journey</em><br>toward deep wellness.',
+    'cta.lead': 'Book a free Zoom assessment where we listen to your situation, answer your questions, and design together the path that best suits you. If you decide to begin, we welcome you to our space in Cuernavaca, Mexico.',
+    'cta.btn': 'Request my assessment via WhatsApp',
+    'cta.note': '<strong>Exclusive attention by referral</strong> · Cuernavaca, Mexico',
+    // FOOTER
+    'foot.brandSub': 'Holistic-Energetic Center',
+    'foot.brandText': 'Gentle technology, deep wellness. A space where neuroscience and consciousness meet to accompany your path toward integral balance.',
+    'foot.navigate': 'Navigate',
+    'foot.book': 'Book',
+    'foot.progHeading': 'Programs',
+    'foot.progSleep': 'Sleep & Exploration',
+    'foot.contact': 'Contact',
+    'foot.location': 'Cuernavaca, Mexico<br>(by referral only)',
+    'foot.waLink': 'Write to us on WhatsApp',
+    'foot.copy': '© 2026 Yambee Faber · All rights reserved',
+    'foot.tagline': 'Gentle technology · Deep wellness · Non-invasive'
+  }
+};
+
+// CTA WhatsApp messages by language
+const WA_MESSAGES = {
+  es: 'Hola, me gustaría agendar una valoración por Zoom con Yambee Faber. Vengo referido por: ',
+  en: 'Hello, I would like to schedule a Zoom assessment with Yambee Faber. I was referred by: '
+};
+
+// ============================================================
+// APPLY LANGUAGE
+// ============================================================
+function applyLanguage(lang) {
+  const dict = TRANSLATIONS[lang] || TRANSLATIONS.es;
+
+  // Texto plano
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+
+  // Texto con HTML (em, br, strong)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+
+  // Actualizar mensaje de WhatsApp en todos los CTAs
+  const waMessage = encodeURIComponent(WA_MESSAGES[lang] || WA_MESSAGES.es);
+  document.querySelectorAll('[data-cta="primary"]').forEach(link => {
+    link.href = `https://wa.me/527771285666?text=${waMessage}`;
+  });
+
+  // Marcar botón activo
+  document.querySelectorAll('[data-set-lang]').forEach(btn => {
+    btn.classList.toggle('is-active', btn.getAttribute('data-set-lang') === lang);
+  });
+
+  // Atributo lang del HTML
+  document.documentElement.lang = lang;
+
+  // Persistir
+  try { localStorage.setItem('yambee-lang', lang); } catch(e) {}
+}
+
+// ============================================================
+// LANGUAGE SWITCHER
+// ============================================================
+document.querySelectorAll('[data-set-lang]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    applyLanguage(btn.getAttribute('data-set-lang'));
+  });
+});
+
+// Inicializar idioma (preferencia guardada → navegador → español)
+(function initLang() {
+  let lang = 'es';
+  try {
+    const saved = localStorage.getItem('yambee-lang');
+    if (saved && TRANSLATIONS[saved]) {
+      lang = saved;
+    } else {
+      const nav = (navigator.language || 'es').toLowerCase();
+      if (nav.startsWith('en')) lang = 'en';
+    }
+  } catch(e) {}
+  applyLanguage(lang);
+})();
+
+// ============================================================
+// INTRO POPUP / MODAL
+// ============================================================
+const splash = document.getElementById('introSplash');
+const skipBtn = document.getElementById('introSkip');
+const closeBtn = document.getElementById('introClose');
+
+function hideSplash() {
+  if (!splash) return;
+  splash.classList.add('is-hidden');
+  document.body.style.overflow = '';
+  // Eliminar del DOM después de la animación para liberar memoria
+  setTimeout(() => {
+    if (splash && splash.parentNode) {
+      splash.style.display = 'none';
+    }
+  }, 600);
+}
+
+function showSplashIfNeeded() {
+  // Mostrar el popup siempre al cargar
+  if (splash) {
+    document.body.style.overflow = 'hidden';
+  }
+}
+showSplashIfNeeded();
+
+// Cerrar con botón ✕
+if (closeBtn) closeBtn.addEventListener('click', hideSplash);
+
+// Cerrar con "Explorar el sitio"
+if (skipBtn) skipBtn.addEventListener('click', hideSplash);
+
+// Cerrar al hacer click en el fondo (overlay), pero NO cuando se hace click en la tarjeta
+if (splash) {
+  splash.addEventListener('click', (e) => {
+    if (e.target === splash) hideSplash();
+  });
+}
+
+// El CTA del popup también lo cierra (después de un breve delay para que abra WhatsApp primero)
+const splashCta = splash ? splash.querySelector('.intro__cta') : null;
+if (splashCta) {
+  splashCta.addEventListener('click', () => {
+    setTimeout(hideSplash, 300);
+  });
+}
+
+// Cerrar con tecla Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && splash && !splash.classList.contains('is-hidden')) {
+    hideSplash();
+  }
+});
+
+// ============================================================
 // FAQ accordion
+// ============================================================
 document.querySelectorAll('.faq-item').forEach(item => {
   item.addEventListener('click', () => {
     item.classList.toggle('is-open');
   });
 });
 
+// ============================================================
 // Reveal on scroll
+// ============================================================
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('is-visible');
@@ -2001,9 +2898,12 @@ document.querySelectorAll('section .container, .hero__text, .hero__visual').forE
   observer.observe(el);
 });
 
-// Nav background change on scroll
+// ============================================================
+// Nav shadow on scroll
+// ============================================================
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('nav');
+  if (!nav) return;
   if (window.scrollY > 50) {
     nav.style.boxShadow = '0 4px 20px rgba(15, 64, 54, 0.05)';
   } else {
