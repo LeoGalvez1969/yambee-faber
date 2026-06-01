@@ -644,6 +644,110 @@ section { padding: 120px 5%; position: relative; }
   border-radius: 24px;
   position: relative;
 }
+
+/* ============ VIDEO CONTEMPLATIVO ============ */
+.contemplative {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 48px auto 56px;
+  padding: 40px 20px 30px;
+  min-height: 360px;
+}
+.contemplative__video-wrap {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 5;
+  border: 2px solid rgba(229, 212, 176, 0.6);
+  box-shadow: 0 25px 60px rgba(15, 30, 28, 0.4),
+              inset 0 0 0 6px rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.2);
+}
+.contemplative__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
+/* Halos concéntricos animados (efecto meditación) */
+.contemplative__halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(229, 212, 176, 0.25);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: haloBreathe 6s ease-in-out infinite;
+}
+.contemplative__halo--1 {
+  width: 320px; height: 320px;
+  border-color: rgba(229, 212, 176, 0.4);
+  animation-delay: 0s;
+}
+.contemplative__halo--2 {
+  width: 420px; height: 420px;
+  border-color: rgba(209, 122, 92, 0.2);
+  border-style: dashed;
+  animation-delay: 0.8s;
+}
+.contemplative__halo--3 {
+  width: 540px; height: 540px;
+  border-color: rgba(143, 212, 210, 0.18);
+  animation-delay: 1.6s;
+}
+@keyframes haloBreathe {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.06);
+    opacity: 0.5;
+  }
+}
+
+.contemplative__caption {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 36px;
+  z-index: 5;
+}
+.contemplative__caption-line {
+  width: 56px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  opacity: 0.7;
+}
+.contemplative__caption-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--gold-light);
+  letter-spacing: 0.04em;
+  font-weight: 300;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .contemplative { margin: 32px auto 40px; min-height: 300px; padding: 24px 16px; }
+  .contemplative__video-wrap { width: 180px; height: 180px; }
+  .contemplative__halo--1 { width: 240px; height: 240px; }
+  .contemplative__halo--2 { width: 320px; height: 320px; }
+  .contemplative__halo--3 { width: 400px; height: 400px; }
+  .contemplative__caption-text { font-size: 18px; }
+  .contemplative__caption-line { width: 36px; }
+}
+@media (max-width: 480px) {
+  .contemplative__halo--3 { width: 100vw; max-width: 380px; height: 380px; }
+}
 .ondas-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1977,6 +2081,28 @@ section { padding: 120px 5%; position: relative; }
     <h2 class="section-title" data-i18n-html="prog.title">El <em>lenguaje</em> de tu mente,<br>traducido a experiencias.</h2>
     <p class="section-lead" data-i18n="prog.lead">Tu cerebro habla en cuatro frecuencias principales. Cada una corresponde a un estado de consciencia. Nuestros programas te llevan al estado exacto que necesitas, cuando lo necesitas.</p>
 
+    <!-- Video contemplativo "Equilibra tu ser" -->
+    <div class="contemplative">
+      <div class="contemplative__halo contemplative__halo--3"></div>
+      <div class="contemplative__halo contemplative__halo--2"></div>
+      <div class="contemplative__halo contemplative__halo--1"></div>
+      <div class="contemplative__video-wrap">
+        <video class="contemplative__video"
+               src="img/intro-bees.mp4"
+               autoplay muted loop playsinline
+               preload="auto"
+               aria-hidden="true"
+               disablepictureinpicture
+               disableremoteplayback>
+        </video>
+      </div>
+      <div class="contemplative__caption">
+        <div class="contemplative__caption-line"></div>
+        <div class="contemplative__caption-text" data-i18n="contemp.text">Respira. Permítete sentir.</div>
+        <div class="contemplative__caption-line"></div>
+      </div>
+    </div>
+
     <!-- Visualización de ondas -->
     <div class="ondas-vis">
       <div class="ondas-grid">
@@ -2516,6 +2642,7 @@ const TRANSLATIONS = {
     'prog.alpha': 'Relajación consciente, calma, integración mente-cuerpo',
     'prog.theta': 'Meditación profunda, creatividad, memoria, aprendizaje',
     'prog.delta': 'Sueño profundo, regeneración celular, sanación',
+    'contemp.text': 'Respira. Permítete sentir.',
     'prog.cat1.title': 'Enfoque & Rendimiento',
     'prog.cat1.sub': 'Para mente clara y productiva',
     'prog.cat1.desc': 'Diseñado para profesionistas, estudiantes y personas que buscan elevar su capacidad cognitiva. Estimulamos los estados Beta-Alfa para máxima concentración, claridad mental y energía sostenida.',
@@ -2706,6 +2833,7 @@ const TRANSLATIONS = {
     'prog.alpha': 'Conscious relaxation, calm, mind-body integration',
     'prog.theta': 'Deep meditation, creativity, memory, learning',
     'prog.delta': 'Deep sleep, cellular regeneration, healing',
+    'contemp.text': 'Breathe. Allow yourself to feel.',
     'prog.cat1.title': 'Focus & Performance',
     'prog.cat1.sub': 'For a clear and productive mind',
     'prog.cat1.desc': 'Designed for professionals, students, and people seeking to elevate their cognitive capacity. We stimulate Beta-Alpha states for maximum concentration, mental clarity, and sustained energy.',
