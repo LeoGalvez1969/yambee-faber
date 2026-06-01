@@ -1443,27 +1443,38 @@ section { padding: 120px 5%; position: relative; }
 .intro__lang-flag svg { width: 100%; height: 100%; display: block; }
 
 .intro__mark {
-  width: 64px; height: 64px;
-  margin: 0 auto 20px;
+  width: 140px; height: 140px;
+  margin: 0 auto 22px;
   border-radius: 50%;
-  border: 1.5px solid var(--gold);
+  border: 2px solid var(--gold);
   display: flex; align-items: center; justify-content: center;
   position: relative;
   background: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(42, 95, 82, 0.18), inset 0 0 0 4px rgba(255, 255, 255, 0.6);
 }
 .intro__mark::before {
   content: '';
   position: absolute;
-  inset: -8px;
+  inset: -12px;
   border-radius: 50%;
-  border: 1px dashed rgba(184, 92, 61, 0.4);
+  border: 1px dashed rgba(209, 122, 92, 0.45);
   animation: spin 30s linear infinite;
+  z-index: 2;
+  pointer-events: none;
 }
 @keyframes spin {
   from { transform: rotate(0); }
   to { transform: rotate(360deg); }
 }
 .intro__mark svg { width: 32px; height: 32px; }
+.intro__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
 
 .intro__eyebrow {
   font-size: 10px;
@@ -1591,7 +1602,7 @@ section { padding: 120px 5%; position: relative; }
   .intro__benefits { gap: 10px; margin-bottom: 24px; }
   .intro__benefit { font-size: 11.5px; }
   .intro__cta { padding: 14px 24px; font-size: 13px; width: 100%; justify-content: center; }
-  .intro__mark { width: 56px; height: 56px; margin-bottom: 16px; }
+  .intro__mark { width: 110px; height: 110px; margin-bottom: 18px; border-width: 2px; }
   .intro__eyebrow { font-size: 9px; }
   .intro__lang { margin-bottom: 24px; }
 }
@@ -1670,15 +1681,14 @@ section { padding: 120px 5%; position: relative; }
       </div>
 
       <div class="intro__mark">
-        <svg viewBox="0 0 40 40" fill="none">
-          <path d="M14 8 Q18 14 14 20 Q10 26 14 32" stroke="#1F6B57" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <circle cx="14" cy="6" r="2.5" fill="#2E9B7E"/>
-          <circle cx="13" cy="14" r="1.5" fill="#1F6B57"/>
-          <circle cx="13" cy="20" r="1.8" fill="#1F6B57"/>
-          <circle cx="13" cy="26" r="1.5" fill="#1F6B57"/>
-          <circle cx="13" cy="32" r="1.2" fill="#1F6B57"/>
-          <path d="M22 8 Q26 14 22 20 Q18 26 22 32" stroke="#2E9B7E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
+        <video class="intro__video"
+               src="img/intro-bees.mp4"
+               autoplay muted loop playsinline
+               preload="auto"
+               aria-hidden="true"
+               disablepictureinpicture
+               disableremoteplayback>
+        </video>
       </div>
 
       <div class="intro__eyebrow" data-i18n="intro.eyebrow">Yambee Faber · Cuernavaca, Morelos</div>
