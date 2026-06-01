@@ -2,9 +2,29 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Yambee Faber">
+<meta name="theme-color" content="#5A9B89">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/svg+xml" sizes="any" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22100%22%20fill%3D%22%23f4efe2%22%2F%3E%3Cg%20transform%3D%22translate(30%2C%2025)%22%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22120%22%20r%3D%2211%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22112%22%20cy%3D%22150%22%20r%3D%2213%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22110%22%20cy%3D%22182%22%20r%3D%2215%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22118%22%20cy%3D%22216%22%20r%3D%2217%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22134%22%20cy%3D%22250%22%20r%3D%2219%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22156%22%20cy%3D%22282%22%20r%3D%2221%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22184%22%20cy%3D%22310%22%20r%3D%2219%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22212%22%20cy%3D%22334%22%20r%3D%2216%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22234%22%20cy%3D%22356%22%20r%3D%2213%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22246%22%20cy%3D%22378%22%20r%3D%2210%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22250%22%20cy%3D%22398%22%20r%3D%228%22%20fill%3D%22%230d733e%22%2F%3E%3Cpath%20d%3D%22M190%2C70%20C170%2C160%20210%2C230%20270%2C270%20C320%2C310%20320%2C380%20270%2C440%20C290%2C400%20300%2C340%20250%2C290%20C200%2C240%20180%2C150%20205%2C70%20Z%22%20fill%3D%22%230d733e%22%2F%3E%3Ccircle%20cx%3D%22255%22%20cy%3D%22155%22%20r%3D%2238%22%20fill%3D%22%230d733e%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="mask-icon" href="favicon.svg" color="#0d733e">
+
 <title>Yambee Faber · Centro de Bienestar Holístico-Energético | Cuernavaca</title>
 <meta name="description" content="Centro de bienestar holístico en Cuernavaca con tecnologías óptico-acústicas y PEMF para potenciar tu rendimiento intelectual, equilibrio emocional y vitalidad. Atención exclusiva por referencia.">
+
+<!-- Open Graph para mejor preview al compartir -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yambee Faber · Centro de Bienestar Integral">
+<meta property="og:description" content="Tecnologías óptico-acústicas y PEMF para tu bienestar integral. Cuernavaca, Morelos.">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,23 +32,70 @@
 
 <style>
 :root {
-  --green-deep: #0F4036;
-  --green-forest: #1F6B57;
-  --green-emerald: #2E9B7E;
-  --green-soft: #8FC9B6;
-  --green-mist: #DDEDE5;
-  --gold-deep: #B08838;
-  --gold: #D4A857;
-  --gold-light: #E8CB8E;
-  --gold-soft: #F5E9CC;
-  --cream: #FBF7EE;
-  --cream-warm: #F5EDDD;
-  --ink: #1A2F2A;
-  --ink-soft: #486962;
+  /* Verde principal: tono sage/eucalipto fresco (en lugar del verde oscuro denso) */
+  --green-deep: #2A5F52;       /* Verde sage oscuro - más vibrante */
+  --green-forest: #3F8674;     /* Verde sage medio */
+  --green-emerald: #5A9B89;    /* Verde aqua/eucalipto - el "fresco" principal */
+  --green-soft: #A8D5C4;       /* Verde menta suave */
+  --green-mist: #E0EDE7;       /* Verde menta muy claro */
+
+  /* Acento aqua/turquesa - el toque fresco principal */
+  --aqua-deep: #2D8B8B;        /* Turquesa profundo */
+  --aqua: #4FB0AE;             /* Aqua medio refrescante */
+  --aqua-light: #8FD4D2;       /* Aqua claro */
+
+  /* Cobre coral cálido - acento vivo (reemplaza champagne) */
+  --gold-deep: #B85C3D;        /* Terracota cálida */
+  --gold: #D17A5C;             /* Coral cobrizo - acento principal */
+  --gold-light: #EBA88E;       /* Coral suave */
+  --gold-soft: #F8E4D8;        /* Salmón muy claro */
+
+  /* Crema marfil luminoso (en lugar del cream amarillento) */
+  --cream: #FCFAF5;            /* Marfil casi blanco */
+  --cream-warm: #F4EFE5;       /* Marfil cálido suave */
   --pearl: #FFFFFF;
+
+  /* Tinta verde-azulada en lugar de café */
+  --ink: #1F3D38;              /* Tinta verde profunda */
+  --ink-soft: #5A7A72;         /* Tinta verde suave */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ============ iOS Safari Fixes ============ */
+/* Previene activación de Reader View en iPhone 16 / Safari */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Soporte para safe areas en iPhone con notch/dynamic island */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Mejor rendering en pantallas Retina iOS */
+img, picture, svg {
+  -webkit-user-select: none;
+  user-select: none;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tap highlight color personalizado (en lugar del azul feo de iOS) */
+* {
+  -webkit-tap-highlight-color: rgba(90, 155, 137, 0.15);
+}
+
+/* Suavizar fuentes en iOS */
+body {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
 
 html { scroll-behavior: smooth; }
 
@@ -127,7 +194,7 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
   display: flex; align-items: center;
   padding: 140px 5% 80px;
-  background: linear-gradient(180deg, #FBF7EE 0%, #F2E9D6 60%, #E8DBB8 100%);
+  background: linear-gradient(180deg, #FCFAF5 0%, #EAF1EB 50%, #D9E8E2 100%);
 }
 .hero__orb {
   position: absolute;
@@ -138,7 +205,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hero__orb--1 {
   width: 520px; height: 520px;
-  background: radial-gradient(circle, var(--gold-light), transparent 70%);
+  background: radial-gradient(circle, var(--aqua-light), transparent 70%);
   top: -100px; right: -120px;
   animation: float 14s ease-in-out infinite;
 }
@@ -150,9 +217,9 @@ a { color: inherit; text-decoration: none; }
 }
 .hero__orb--3 {
   width: 280px; height: 280px;
-  background: radial-gradient(circle, var(--gold), transparent 65%);
+  background: radial-gradient(circle, var(--gold-light), transparent 65%);
   top: 40%; right: 18%;
-  opacity: 0.25;
+  opacity: 0.35;
   animation: float 12s ease-in-out infinite;
 }
 @keyframes float {
@@ -302,7 +369,7 @@ a { color: inherit; text-decoration: none; }
   width: 75%; aspect-ratio: 1;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(15, 64, 54, 0.25), inset 0 0 40px rgba(176, 136, 56, 0.2);
+  box-shadow: 0 30px 80px rgba(15, 64, 54, 0.25), inset 0 0 40px rgba(184, 92, 61, 0.2);
   animation: breathe 6s ease-in-out infinite;
   border: 3px solid var(--gold-light);
 }
@@ -464,7 +531,7 @@ section { padding: 120px 5%; position: relative; }
   content: '';
   position: absolute; top: 0; left: 0;
   width: 100%; height: 4px;
-  background: linear-gradient(90deg, var(--gold), var(--green-emerald));
+  background: linear-gradient(90deg, var(--aqua), var(--green-emerald));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.5s;
@@ -543,7 +610,7 @@ section { padding: 120px 5%; position: relative; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(212, 168, 87, 0.12), transparent 40%),
+    radial-gradient(circle at 20% 20%, rgba(209, 122, 92, 0.12), transparent 40%),
     radial-gradient(circle at 80% 80%, rgba(46, 155, 126, 0.18), transparent 40%);
   pointer-events: none;
   z-index: 1;
@@ -573,7 +640,7 @@ section { padding: 120px 5%; position: relative; }
   margin-bottom: 64px;
   padding: 48px 32px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(212, 168, 87, 0.2);
+  border: 1px solid rgba(209, 122, 92, 0.2);
   border-radius: 24px;
   position: relative;
 }
@@ -588,7 +655,7 @@ section { padding: 120px 5%; position: relative; }
   border-radius: 16px;
   transition: background 0.4s;
 }
-.onda:hover { background: rgba(212, 168, 87, 0.06); }
+.onda:hover { background: rgba(209, 122, 92, 0.06); }
 .onda__wave { height: 60px; margin-bottom: 16px; }
 .onda__name {
   font-family: 'Cormorant Garamond', serif;
@@ -620,7 +687,7 @@ section { padding: 120px 5%; position: relative; }
 }
 .prog-card {
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(212, 168, 87, 0.18);
+  border: 1px solid rgba(209, 122, 92, 0.18);
   border-radius: 20px;
   padding: 36px 32px;
   position: relative;
@@ -668,10 +735,10 @@ section { padding: 120px 5%; position: relative; }
   font-size: 11px;
   padding: 5px 12px;
   border-radius: 30px;
-  background: rgba(212, 168, 87, 0.1);
+  background: rgba(209, 122, 92, 0.1);
   color: var(--gold-light);
   letter-spacing: 0.05em;
-  border: 1px solid rgba(212, 168, 87, 0.25);
+  border: 1px solid rgba(209, 122, 92, 0.25);
 }
 @media (max-width: 900px) {
   .prog-grid { grid-template-columns: 1fr; }
@@ -981,7 +1048,7 @@ section { padding: 120px 5%; position: relative; }
 }
 .test-card {
   background: var(--pearl);
-  border: 1px solid rgba(212, 168, 87, 0.15);
+  border: 1px solid rgba(209, 122, 92, 0.15);
   border-radius: 20px;
   padding: 36px;
   position: relative;
@@ -1003,7 +1070,7 @@ section { padding: 120px 5%; position: relative; }
 .test-card__avatar {
   width: 48px; height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-light), var(--green-emerald));
+  background: linear-gradient(135deg, var(--aqua-light), var(--green-emerald));
   display: flex; align-items: center; justify-content: center;
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
@@ -1090,7 +1157,7 @@ section { padding: 120px 5%; position: relative; }
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(circle at 30% 50%, rgba(212, 168, 87, 0.18), transparent 50%),
+    radial-gradient(circle at 30% 50%, rgba(209, 122, 92, 0.18), transparent 50%),
     radial-gradient(circle at 70% 50%, rgba(46, 155, 126, 0.18), transparent 50%);
   z-index: 1;
 }
@@ -1136,7 +1203,7 @@ section { padding: 120px 5%; position: relative; }
 .cta-final__btn:hover {
   background: var(--gold-light);
   transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(212, 168, 87, 0.35);
+  box-shadow: 0 15px 40px rgba(209, 122, 92, 0.35);
 }
 .cta-final__note {
   margin-top: 32px;
@@ -1160,7 +1227,7 @@ section { padding: 120px 5%; position: relative; }
   grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 48px;
   padding-bottom: 48px;
-  border-bottom: 1px solid rgba(212, 168, 87, 0.15);
+  border-bottom: 1px solid rgba(209, 122, 92, 0.15);
 }
 .footer__brand-name {
   font-family: 'Cormorant Garamond', serif;
@@ -1242,7 +1309,7 @@ section { padding: 120px 5%; position: relative; }
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(15, 64, 54, 0.78);
+  background: rgba(42, 95, 82, 0.78);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   display: flex;
@@ -1268,12 +1335,12 @@ section { padding: 120px 5%; position: relative; }
   z-index: 2;
   max-width: 640px;
   width: 100%;
-  background: linear-gradient(180deg, #FBF7EE 0%, #F5EDDD 100%);
+  background: linear-gradient(180deg, #FCFAF5 0%, #EAF1EB 100%);
   border-radius: 28px;
   padding: 56px 56px 48px;
   text-align: center;
   color: var(--ink);
-  box-shadow: 0 40px 100px rgba(15, 64, 54, 0.4), 0 0 0 1px rgba(212, 168, 87, 0.3);
+  box-shadow: 0 40px 100px rgba(42, 95, 82, 0.4), 0 0 0 1px rgba(143, 212, 210, 0.3);
   animation: introCardIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
   overflow: hidden;
   margin: auto;
@@ -1289,7 +1356,7 @@ section { padding: 120px 5%; position: relative; }
   position: absolute;
   top: -80px; right: -80px;
   width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(212, 168, 87, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(143, 212, 210, 0.45), transparent 70%);
   filter: blur(30px);
   pointer-events: none;
 }
@@ -1298,7 +1365,7 @@ section { padding: 120px 5%; position: relative; }
   position: absolute;
   bottom: -100px; left: -100px;
   width: 280px; height: 280px;
-  background: radial-gradient(circle, rgba(46, 155, 126, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(168, 213, 196, 0.40), transparent 70%);
   filter: blur(40px);
   pointer-events: none;
 }
@@ -1358,7 +1425,7 @@ section { padding: 120px 5%; position: relative; }
   transition: all 0.3s;
 }
 .intro__lang-btn:hover {
-  background: rgba(212, 168, 87, 0.15);
+  background: rgba(209, 122, 92, 0.15);
   border-color: var(--gold);
 }
 .intro__lang-btn.is-active {
@@ -1389,7 +1456,7 @@ section { padding: 120px 5%; position: relative; }
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  border: 1px dashed rgba(176, 136, 56, 0.4);
+  border: 1px dashed rgba(184, 92, 61, 0.4);
   animation: spin 30s linear infinite;
 }
 @keyframes spin {
@@ -1616,10 +1683,10 @@ section { padding: 120px 5%; position: relative; }
 
       <div class="intro__eyebrow" data-i18n="intro.eyebrow">Yambee Faber · Cuernavaca, Morelos</div>
 
-      <h2 class="intro__title" id="introTitle">
+      <div class="intro__title" id="introTitle" role="heading" aria-level="2">
         <span data-i18n="intro.title1">Recarga tu</span> <em data-i18n="intro.titleEm">energía</em>.<br>
         <strong data-i18n="intro.title2">Eleva tu mente.</strong>
-      </h2>
+      </div>
 
       <p class="intro__lead" data-i18n-html="intro.lead">
         Bienvenido a un espacio donde la <strong>neurociencia</strong> se encuentra con la <strong>energía vital</strong>. Nuestras terapias <strong>Óptico-Acústicas</strong> y de <strong>Campos Electromagnéticos Pulsados (PEMF)</strong> son <strong>100% no invasivas</strong> y trabajan con la inteligencia natural de tu cuerpo para potenciar tu rendimiento intelectual, equilibrar tus emociones y restaurar tu vitalidad profunda.
@@ -1703,6 +1770,7 @@ section { padding: 120px 5%; position: relative; }
 </nav>
 
 <!-- ========== HERO ========== -->
+<main role="main">
 <header class="hero">
   <div class="hero__orb hero__orb--1"></div>
   <div class="hero__orb hero__orb--2"></div>
@@ -2302,6 +2370,7 @@ section { padding: 120px 5%; position: relative; }
     <div class="cta-final__note" data-i18n-html="cta.note"><strong>Atención exclusiva por referencia</strong> · Cuernavaca, Morelos</div>
   </div>
 </section>
+</main>
 
 <!-- ========== FOOTER ========== -->
 <footer class="footer">
